@@ -22,9 +22,28 @@ Partial Class menu
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Text = "Form2"
+        Button1 = New Button()
+        SuspendLayout()
+        ' 
+        ' Button1
+        ' 
+        Button1.Location = New Point(275, 143)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(189, 135)
+        Button1.TabIndex = 0
+        Button1.Text = "REGISTRAR PRODUCTO"
+        Button1.UseVisualStyleBackColor = True
+        ' 
+        ' menu
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(800, 450)
+        Controls.Add(Button1)
+        Name = "menu"
+        Text = "Form2"
+        ResumeLayout(False)
     End Sub
+
+    Friend WithEvents Button1 As Button
 End Class
