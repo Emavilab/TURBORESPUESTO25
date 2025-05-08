@@ -32,6 +32,7 @@ Partial Class login
         accederbtn = New Button()
         PictureBox2 = New PictureBox()
         salirbtn = New Button()
+        checkmostrar = New CheckBox()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -87,6 +88,7 @@ Partial Class login
         ' 
         txtcontraseña.Location = New Point(324, 257)
         txtcontraseña.Name = "txtcontraseña"
+        txtcontraseña.PasswordChar = "*"c
         txtcontraseña.Size = New Size(179, 23)
         txtcontraseña.TabIndex = 5
         ' 
@@ -95,7 +97,7 @@ Partial Class login
         accederbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         accederbtn.Image = CType(resources.GetObject("accederbtn.Image"), Image)
         accederbtn.ImageAlign = ContentAlignment.MiddleLeft
-        accederbtn.Location = New Point(324, 301)
+        accederbtn.Location = New Point(324, 315)
         accederbtn.Name = "accederbtn"
         accederbtn.Size = New Size(116, 51)
         accederbtn.TabIndex = 6
@@ -118,7 +120,7 @@ Partial Class login
         salirbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         salirbtn.Image = CType(resources.GetObject("salirbtn.Image"), Image)
         salirbtn.ImageAlign = ContentAlignment.MiddleLeft
-        salirbtn.Location = New Point(457, 301)
+        salirbtn.Location = New Point(456, 315)
         salirbtn.Name = "salirbtn"
         salirbtn.Size = New Size(96, 51)
         salirbtn.TabIndex = 9
@@ -126,11 +128,22 @@ Partial Class login
         salirbtn.TextAlign = ContentAlignment.MiddleRight
         salirbtn.UseVisualStyleBackColor = True
         ' 
-        ' Form1
+        ' checkmostrar
+        ' 
+        checkmostrar.AutoSize = True
+        checkmostrar.Location = New Point(324, 286)
+        checkmostrar.Name = "checkmostrar"
+        checkmostrar.Size = New Size(128, 19)
+        checkmostrar.TabIndex = 10
+        checkmostrar.Text = "Mostrar contraseña"
+        checkmostrar.UseVisualStyleBackColor = True
+        ' 
+        ' login
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(600, 378)
+        Controls.Add(checkmostrar)
         Controls.Add(salirbtn)
         Controls.Add(PictureBox2)
         Controls.Add(accederbtn)
@@ -140,7 +153,8 @@ Partial Class login
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(PictureBox1)
-        Name = "Form1"
+        Name = "login"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Form1"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
@@ -157,5 +171,6 @@ Partial Class login
     Friend WithEvents accederbtn As Button
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents salirbtn As Button
+    Friend WithEvents checkmostrar As CheckBox
 
 End Class

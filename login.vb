@@ -46,4 +46,17 @@ Public Class login
     Private Sub salirbtn_Click(sender As Object, e As EventArgs) Handles salirbtn.Click
         Me.Close()
     End Sub
+
+    Private Sub checkmostrar_CheckedChanged(sender As Object, e As EventArgs) Handles checkmostrar.CheckedChanged
+        ' Mostrar u ocultar la contraseña según el estado del CheckBox
+        If checkmostrar.Checked Then
+            txtcontraseña.PasswordChar = ControlChars.NullChar ' Muestra la contraseña
+        Else
+            txtcontraseña.PasswordChar = "*" ' Oculta la contraseña
+        End If
+    End Sub
+
+    Private Sub txtcontraseña_TextChanged(sender As Object, e As EventArgs) Handles txtcontraseña.TextChanged
+        ' Este evento puede usarse para validaciones adicionales si es necesario
+    End Sub
 End Class
