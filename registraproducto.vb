@@ -6,7 +6,7 @@ Public Class registraproducto
     Private connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
 
     ' Cargar los nombres de los proveedores en el ComboBox al cargar el formulario
-    Private Sub registraproducto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub registraproducto_Load(sender As Object, e As EventArgs) Handles MyBase.Load, tabladeproductos.SystemColorsChanged
         CargarProveedores()
         CargarProductos()
     End Sub
@@ -53,18 +53,30 @@ Public Class registraproducto
         End Using
     End Sub
 
+    ' Método para limpiar los campos de texto y el ComboBox
+    Private Sub LimpiarCampos()
+        txtcodigo.Clear()
+        txtproducto.Clear()
+        txtdescripcion.Clear()
+        txtmarca.Clear()
+        txtmodelo.Clear()
+        txtpreciocompra.Clear()
+        txtprecioventa.Clear()
+        txtstock.Clear()
+        ComboBoxproveedores.SelectedIndex = -1
+    End Sub
 
     ' Botón para agregar un nuevo producto
     Private Sub agregarbtn_Click(sender As Object, e As EventArgs) Handles agregarbtn.Click
         ' Validaciones
         If String.IsNullOrEmpty(txtcodigo.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtproducto.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtmarca.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtmodelo.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtstock.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtprecioventa.Text.Trim()) OrElse
-           ComboBoxproveedores.SelectedItem Is Nothing Then
+       String.IsNullOrEmpty(txtproducto.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtmarca.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtmodelo.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtstock.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtprecioventa.Text.Trim()) OrElse
+       ComboBoxproveedores.SelectedItem Is Nothing Then
             MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -84,7 +96,7 @@ Public Class registraproducto
             Try
                 connection.Open()
                 Dim query As String = "INSERT INTO productos (codigo, nombre, descripcion, marca, modelo, precio_compra, precio_venta, stock, id_proveedor) 
-                                       VALUES (@codigo, @nombre, @descripcion, @marca, @modelo, @precio_compra, @precio_venta, @stock, @id_proveedor)"
+                                   VALUES (@codigo, @nombre, @descripcion, @marca, @modelo, @precio_compra, @precio_venta, @stock, @id_proveedor)"
                 Dim command As New MySqlCommand(query, connection)
                 command.Parameters.AddWithValue("@codigo", txtcodigo.Text.Trim())
                 command.Parameters.AddWithValue("@nombre", txtproducto.Text.Trim())
@@ -99,50 +111,17 @@ Public Class registraproducto
                 command.ExecuteNonQuery()
                 MessageBox.Show("Producto agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 CargarProductos()
+                LimpiarCampos() ' Limpiar los campos después de agregar
             Catch ex As Exception
                 MessageBox.Show("Error al agregar producto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
     End Sub
 
-    ' Botón para eliminar un producto
-    Private Sub eliminarbtn_Click(sender As Object, e As EventArgs) Handles eliminarbtn.Click
-        If tabladeproductos.SelectedRows.Count > 0 Then
-            Dim codigoProducto = tabladeproductos.SelectedRows(0).Cells("codigo").Value.ToString
-            Using connection As New MySqlConnection(connectionString)
-                Try
-                    connection.Open()
-                    Dim query = "DELETE FROM productos WHERE codigo = @codigo"
-                    Dim command As New MySqlCommand(query, connection)
-                    command.Parameters.AddWithValue("@codigo", codigoProducto)
-
-                    command.ExecuteNonQuery()
-                    MessageBox.Show("Producto eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    CargarProductos()
-                Catch ex As Exception
-                    MessageBox.Show("Error al eliminar producto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Using
-        Else
-            MessageBox.Show("Seleccione un producto para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-    End Sub
-    Private Sub ATRASBTN_Click(sender As Object, e As EventArgs) Handles ATRASBTN.Click
-        ' Crear una instancia del formulario menu
-        Dim formularioMenu As New menu()
-
-        ' Mostrar el formulario menu
-        formularioMenu.Show()
-
-        ' Cerrar el formulario actual
-        Me.Close()
-    End Sub
-
     ' Botón para editar un producto
     Private Sub editarbtn_Click(sender As Object, e As EventArgs) Handles editarbtn.Click
         ' Verificar si hay una fila seleccionada
         If tabladeproductos.SelectedRows.Count > 0 Then
-            ' Obtener el código del producto de la fila seleccionada
             Dim codigoProducto As String = tabladeproductos.SelectedRows(0).Cells("codigo").Value.ToString()
 
             ' Validaciones
@@ -199,9 +178,8 @@ Public Class registraproducto
 
                     command.ExecuteNonQuery()
                     MessageBox.Show("Producto editado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                    ' Recargar los productos en la tabla
                     CargarProductos()
+                    LimpiarCampos() ' Limpiar los campos después de editar
                 Catch ex As Exception
                     MessageBox.Show("Error al editar producto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
@@ -210,6 +188,32 @@ Public Class registraproducto
             MessageBox.Show("Seleccione un producto para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
+
+    ' Botón para eliminar un producto
+    Private Sub eliminarbtn_Click(sender As Object, e As EventArgs) Handles eliminarbtn.Click
+        If tabladeproductos.SelectedRows.Count > 0 Then
+            Dim codigoProducto = tabladeproductos.SelectedRows(0).Cells("codigo").Value.ToString
+            Using connection As New MySqlConnection(connectionString)
+                Try
+                    connection.Open()
+                    Dim query = "DELETE FROM productos WHERE codigo = @codigo"
+                    Dim command As New MySqlCommand(query, connection)
+                    command.Parameters.AddWithValue("@codigo", codigoProducto)
+
+                    command.ExecuteNonQuery()
+                    MessageBox.Show("Producto eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    CargarProductos()
+                    LimpiarCampos() ' Limpiar los campos después de eliminar
+                Catch ex As Exception
+                    MessageBox.Show("Error al eliminar producto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End Using
+        Else
+            MessageBox.Show("Seleccione un producto para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+    End Sub
+
+
 
     Private Sub tabladeproductos_SelectionChanged(sender As Object, e As EventArgs) Handles tabladeproductos.SelectionChanged
         ' Verificar si hay una fila seleccionada
@@ -236,6 +240,14 @@ Public Class registraproducto
             Next
         End If
     End Sub
+    Private Sub ATRASBTN_Click(sender As Object, e As EventArgs) Handles ATRASBTN.Click
+        ' Crear una instancia del formulario menu
+        Dim formularioMenu As New menu()
 
+        ' Mostrar el formulario menu
+        formularioMenu.Show()
 
+        ' Cerrar el formulario actual
+        Me.Close()
+    End Sub
 End Class
