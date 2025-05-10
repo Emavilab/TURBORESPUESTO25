@@ -35,15 +35,25 @@ Public Class registraproducto
             End Try
         End Using
     End Sub
-
-    Private Sub CargarProductos()
+    Private Sub CargarProductos(Optional terminoBusqueda As String = "")
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
                 Dim query As String = "SELECT p.codigo, p.nombre, p.descripcion, p.marca, p.modelo, p.precio_compra, p.precio_venta, p.stock, pr.nombre AS proveedor 
                                    FROM productos p 
                                    INNER JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor"
-                Dim adapter As New MySqlDataAdapter(query, connection)
+
+                ' Agregar filtro de búsqueda si se proporciona un término
+                If Not String.IsNullOrEmpty(terminoBusqueda) Then
+                    query &= " WHERE p.codigo LIKE @termino OR p.nombre LIKE @termino OR p.marca LIKE @termino OR p.modelo LIKE @termino"
+                End If
+
+                Dim command As New MySqlCommand(query, connection)
+                If Not String.IsNullOrEmpty(terminoBusqueda) Then
+                    command.Parameters.AddWithValue("@termino", "%" & terminoBusqueda & "%")
+                End If
+
+                Dim adapter As New MySqlDataAdapter(command)
                 Dim table As New DataTable()
                 adapter.Fill(table)
                 tabladeproductos.DataSource = table
@@ -241,13 +251,36 @@ Public Class registraproducto
         End If
     End Sub
     Private Sub ATRASBTN_Click(sender As Object, e As EventArgs) Handles ATRASBTN.Click
-        ' Crear una instancia del formulario menu
+        ' Verificar si ya existe una instancia del formulario menu
+        For Each frm As Form In Application.OpenForms
+            If TypeOf frm Is menu Then
+                frm.Show() ' Mostrar el formulario existente
+                Me.Close() ' Cerrar el formulario actual
+                Return
+            End If
+        Next
+
+        ' Si no existe, crear una nueva instancia del formulario menu
         Dim formularioMenu As New menu()
-
-        ' Mostrar el formulario menu
         formularioMenu.Show()
-
-        ' Cerrar el formulario actual
         Me.Close()
+    End Sub
+
+    Private Sub buscarbtn_Click(sender As Object, e As EventArgs) Handles buscarbtn.Click
+        Dim terminoBusqueda As String = txtbuscar.Text.Trim()
+        CargarProductos(terminoBusqueda)
+    End Sub
+
+    Private Sub txtbuscar_TextChanged(sender As Object, e As EventArgs) Handles txtbuscar.TextChanged
+        ' Verificar si el texto está vacío
+        If String.IsNullOrEmpty(txtbuscar.Text.Trim()) Then
+            ' Cargar todos los registros
+            CargarProductos()
+        End If
+
+    End Sub
+
+    Private Sub txtmodelo_TextChanged(sender As Object, e As EventArgs) Handles txtmodelo.TextChanged
+
     End Sub
 End Class

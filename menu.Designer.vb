@@ -27,9 +27,9 @@ Partial Class menu
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(275, 143)
+        Button1.Location = New Point(244, 47)
         Button1.Name = "Button1"
-        Button1.Size = New Size(189, 135)
+        Button1.Size = New Size(75, 71)
         Button1.TabIndex = 0
         Button1.Text = "REGISTRAR PRODUCTO"
         Button1.UseVisualStyleBackColor = True

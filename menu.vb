@@ -1,9 +1,12 @@
 ﻿Public Class menu
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Crear una instancia del formulario registraproducto
-        Dim formularioRegistro As New registraproducto()
+        ' Crear una nueva instancia del formulario registraproducto
+        Dim formularioRegistroProducto As New registraproducto()
 
-        ' Mostrar el formulario
-        formularioRegistro.Show()
+        ' Mostrar el formulario registraproducto
+        formularioRegistroProducto.Show()
+
+        ' Cerrar el formulario actual (menu)
+        Me.Close()
     End Sub
 End Class

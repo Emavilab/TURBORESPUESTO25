@@ -46,6 +46,8 @@ Partial Class registraproducto
         editarbtn = New Button()
         eliminarbtn = New Button()
         ATRASBTN = New Button()
+        txtbuscar = New TextBox()
+        buscarbtn = New Button()
         CType(tabladeproductos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -227,6 +229,7 @@ Partial Class registraproducto
         ' 
         ' agregarbtn
         ' 
+        agregarbtn.BackColor = Color.Lime
         agregarbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         agregarbtn.Image = My.Resources.Resources.anadir_al_carrito
         agregarbtn.ImageAlign = ContentAlignment.MiddleLeft
@@ -236,10 +239,11 @@ Partial Class registraproducto
         agregarbtn.TabIndex = 26
         agregarbtn.Text = "AGREGAR"
         agregarbtn.TextAlign = ContentAlignment.MiddleRight
-        agregarbtn.UseVisualStyleBackColor = True
+        agregarbtn.UseVisualStyleBackColor = False
         ' 
         ' editarbtn
         ' 
+        editarbtn.BackColor = Color.Lime
         editarbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         editarbtn.Image = My.Resources.Resources.productos_cosmeticos
         editarbtn.ImageAlign = ContentAlignment.MiddleLeft
@@ -249,10 +253,11 @@ Partial Class registraproducto
         editarbtn.TabIndex = 27
         editarbtn.Text = "EDITAR"
         editarbtn.TextAlign = ContentAlignment.MiddleRight
-        editarbtn.UseVisualStyleBackColor = True
+        editarbtn.UseVisualStyleBackColor = False
         ' 
         ' eliminarbtn
         ' 
+        eliminarbtn.BackColor = Color.Lime
         eliminarbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         eliminarbtn.Image = My.Resources.Resources.eliminar_producto
         eliminarbtn.ImageAlign = ContentAlignment.MiddleLeft
@@ -262,22 +267,47 @@ Partial Class registraproducto
         eliminarbtn.TabIndex = 28
         eliminarbtn.Text = "ELIMINAR"
         eliminarbtn.TextAlign = ContentAlignment.MiddleRight
-        eliminarbtn.UseVisualStyleBackColor = True
+        eliminarbtn.UseVisualStyleBackColor = False
         ' 
         ' ATRASBTN
         ' 
+        ATRASBTN.BackColor = Color.Lime
+        ATRASBTN.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        ATRASBTN.Image = My.Resources.Resources.flecha_izquierda
+        ATRASBTN.ImageAlign = ContentAlignment.TopCenter
         ATRASBTN.Location = New Point(683, 630)
         ATRASBTN.Name = "ATRASBTN"
         ATRASBTN.Size = New Size(113, 51)
         ATRASBTN.TabIndex = 29
-        ATRASBTN.Text = "ATRAS"
-        ATRASBTN.UseVisualStyleBackColor = True
+        ATRASBTN.Text = "VOLVER"
+        ATRASBTN.TextAlign = ContentAlignment.BottomCenter
+        ATRASBTN.UseVisualStyleBackColor = False
+        ' 
+        ' txtbuscar
+        ' 
+        txtbuscar.BackColor = SystemColors.Menu
+        txtbuscar.Location = New Point(26, 246)
+        txtbuscar.Name = "txtbuscar"
+        txtbuscar.Size = New Size(812, 23)
+        txtbuscar.TabIndex = 30
+        ' 
+        ' buscarbtn
+        ' 
+        buscarbtn.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        buscarbtn.Location = New Point(854, 246)
+        buscarbtn.Name = "buscarbtn"
+        buscarbtn.Size = New Size(109, 23)
+        buscarbtn.TabIndex = 31
+        buscarbtn.Text = "Buscar"
+        buscarbtn.UseVisualStyleBackColor = True
         ' 
         ' registraproducto
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1015, 710)
+        Controls.Add(buscarbtn)
+        Controls.Add(txtbuscar)
         Controls.Add(ATRASBTN)
         Controls.Add(eliminarbtn)
         Controls.Add(editarbtn)
@@ -333,4 +363,6 @@ Partial Class registraproducto
     Friend WithEvents editarbtn As Button
     Friend WithEvents eliminarbtn As Button
     Friend WithEvents ATRASBTN As Button
+    Friend WithEvents txtbuscar As TextBox
+    Friend WithEvents buscarbtn As Button
 End Class
