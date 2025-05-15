@@ -36,6 +36,8 @@ Partial Class proveedores
         eliminarprobtn = New Button()
         editarprobtn = New Button()
         agregarprobtn = New Button()
+        btnbuscarpro = New Button()
+        txtbuscarpro = New TextBox()
         CType(tabladeproveedores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -182,11 +184,29 @@ Partial Class proveedores
         agregarprobtn.TextAlign = ContentAlignment.MiddleRight
         agregarprobtn.UseVisualStyleBackColor = False
         ' 
+        ' btnbuscarpro
+        ' 
+        btnbuscarpro.Location = New Point(699, 234)
+        btnbuscarpro.Name = "btnbuscarpro"
+        btnbuscarpro.Size = New Size(75, 28)
+        btnbuscarpro.TabIndex = 34
+        btnbuscarpro.Text = "Buscar"
+        btnbuscarpro.UseVisualStyleBackColor = True
+        ' 
+        ' txtbuscarpro
+        ' 
+        txtbuscarpro.Location = New Point(18, 239)
+        txtbuscarpro.Name = "txtbuscarpro"
+        txtbuscarpro.Size = New Size(675, 23)
+        txtbuscarpro.TabIndex = 35
+        ' 
         ' proveedores
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 573)
+        Controls.Add(txtbuscarpro)
+        Controls.Add(btnbuscarpro)
         Controls.Add(ATRASBTNPRO)
         Controls.Add(eliminarprobtn)
         Controls.Add(editarprobtn)
@@ -222,4 +242,6 @@ Partial Class proveedores
     Friend WithEvents eliminarprobtn As Button
     Friend WithEvents editarprobtn As Button
     Friend WithEvents agregarprobtn As Button
+    Friend WithEvents btnbuscarpro As Button
+    Friend WithEvents txtbuscarpro As TextBox
 End Class

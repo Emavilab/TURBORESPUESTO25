@@ -23,22 +23,33 @@ Partial Class menu
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Button1 = New Button()
+        REGISTARPRO = New Button()
         SuspendLayout()
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(244, 47)
+        Button1.Location = New Point(50, 48)
         Button1.Name = "Button1"
-        Button1.Size = New Size(75, 71)
+        Button1.Size = New Size(159, 107)
         Button1.TabIndex = 0
         Button1.Text = "REGISTRAR PRODUCTO"
         Button1.UseVisualStyleBackColor = True
+        ' 
+        ' REGISTARPRO
+        ' 
+        REGISTARPRO.Location = New Point(285, 48)
+        REGISTARPRO.Name = "REGISTARPRO"
+        REGISTARPRO.Size = New Size(159, 107)
+        REGISTARPRO.TabIndex = 1
+        REGISTARPRO.Text = "REGISTRAR PROVEEDORES"
+        REGISTARPRO.UseVisualStyleBackColor = True
         ' 
         ' menu
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(REGISTARPRO)
         Controls.Add(Button1)
         Name = "menu"
         Text = "Form2"
@@ -46,4 +57,5 @@ Partial Class menu
     End Sub
 
     Friend WithEvents Button1 As Button
+    Friend WithEvents REGISTARPRO As Button
 End Class
