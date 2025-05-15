@@ -122,9 +122,12 @@ Partial Class proveedores
         ' 
         ' tabladeproveedores
         ' 
+        tabladeproveedores.AllowUserToAddRows = False
+        tabladeproveedores.AllowUserToDeleteRows = False
         tabladeproveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         tabladeproveedores.Location = New Point(12, 278)
         tabladeproveedores.Name = "tabladeproveedores"
+        tabladeproveedores.ReadOnly = True
         tabladeproveedores.Size = New Size(776, 202)
         tabladeproveedores.TabIndex = 21
         ' 
