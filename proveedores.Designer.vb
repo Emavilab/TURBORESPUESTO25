@@ -129,8 +129,9 @@ Partial Class proveedores
         ' 
         ' eliminarprobtn
         ' 
-        eliminarprobtn.BackColor = Color.Lime
+        eliminarprobtn.BackColor = SystemColors.MenuHighlight
         eliminarprobtn.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        eliminarprobtn.ForeColor = Color.White
         eliminarprobtn.Image = My.Resources.Resources.eliminar_producto
         eliminarprobtn.ImageAlign = ContentAlignment.MiddleLeft
         eliminarprobtn.Location = New Point(554, 544)
@@ -143,8 +144,9 @@ Partial Class proveedores
         ' 
         ' editarprobtn
         ' 
-        editarprobtn.BackColor = Color.Lime
+        editarprobtn.BackColor = SystemColors.MenuHighlight
         editarprobtn.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        editarprobtn.ForeColor = Color.White
         editarprobtn.Image = My.Resources.Resources.productos_cosmeticos
         editarprobtn.ImageAlign = ContentAlignment.MiddleLeft
         editarprobtn.Location = New Point(418, 544)
@@ -157,8 +159,9 @@ Partial Class proveedores
         ' 
         ' agregarprobtn
         ' 
-        agregarprobtn.BackColor = Color.Lime
+        agregarprobtn.BackColor = SystemColors.MenuHighlight
         agregarprobtn.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        agregarprobtn.ForeColor = Color.White
         agregarprobtn.Image = My.Resources.Resources.anadir_al_carrito
         agregarprobtn.ImageAlign = ContentAlignment.MiddleLeft
         agregarprobtn.Location = New Point(287, 544)
@@ -189,6 +192,7 @@ Partial Class proveedores
         ' 
         AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.White
         ClientSize = New Size(1015, 710)
         Controls.Add(txtbuscarpro)
         Controls.Add(btnbuscarpro)

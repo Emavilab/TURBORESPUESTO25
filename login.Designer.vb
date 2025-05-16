@@ -94,7 +94,9 @@ Partial Class login
         ' 
         ' accederbtn
         ' 
+        accederbtn.BackColor = SystemColors.MenuHighlight
         accederbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        accederbtn.ForeColor = Color.White
         accederbtn.Image = CType(resources.GetObject("accederbtn.Image"), Image)
         accederbtn.ImageAlign = ContentAlignment.MiddleLeft
         accederbtn.Location = New Point(324, 315)
@@ -103,7 +105,7 @@ Partial Class login
         accederbtn.TabIndex = 6
         accederbtn.Text = "ACCEDER"
         accederbtn.TextAlign = ContentAlignment.MiddleRight
-        accederbtn.UseVisualStyleBackColor = True
+        accederbtn.UseVisualStyleBackColor = False
         ' 
         ' PictureBox2
         ' 
@@ -117,16 +119,18 @@ Partial Class login
         ' 
         ' salirbtn
         ' 
+        salirbtn.BackColor = SystemColors.MenuHighlight
         salirbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        salirbtn.ForeColor = Color.White
         salirbtn.Image = CType(resources.GetObject("salirbtn.Image"), Image)
         salirbtn.ImageAlign = ContentAlignment.MiddleLeft
         salirbtn.Location = New Point(456, 315)
         salirbtn.Name = "salirbtn"
-        salirbtn.Size = New Size(96, 51)
+        salirbtn.Size = New Size(114, 51)
         salirbtn.TabIndex = 9
         salirbtn.Text = "SALIR"
         salirbtn.TextAlign = ContentAlignment.MiddleRight
-        salirbtn.UseVisualStyleBackColor = True
+        salirbtn.UseVisualStyleBackColor = False
         ' 
         ' checkmostrar
         ' 
@@ -142,6 +146,7 @@ Partial Class login
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.White
         ClientSize = New Size(600, 378)
         Controls.Add(checkmostrar)
         Controls.Add(salirbtn)
