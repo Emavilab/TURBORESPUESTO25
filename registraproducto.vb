@@ -9,7 +9,81 @@ Public Class registraproducto
     Private Sub registraproducto_Load(sender As Object, e As EventArgs) Handles MyBase.Load, tabladeproductos.SystemColorsChanged
         CargarProveedores()
         CargarProductos()
+        CargarCategorias()
+        CargarCategoriasBuscar()
     End Sub
+    Private Sub CargarCategorias()
+        Using connection As New MySqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = "SELECT id_categoria, nombre_categoria FROM categoria"
+                Dim command As New MySqlCommand(query, connection)
+                Dim reader As MySqlDataReader = command.ExecuteReader()
+
+                ComboBoxcategorias.Items.Clear()
+                While reader.Read()
+                    ComboBoxcategorias.Items.Add(New With {
+                    .Id = reader("id_categoria"),
+                    .Nombre = reader("nombre_categoria").ToString()
+                })
+                End While
+                ComboBoxcategorias.DisplayMember = "Nombre"
+                ComboBoxcategorias.ValueMember = "Id"
+                reader.Close()
+            Catch ex As Exception
+                MessageBox.Show("Error al cargar categorías: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub CargarCategoriasBuscar()
+        Using connection As New MySqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = "SELECT id_categoria, nombre_categoria FROM categoria"
+                Dim command As New MySqlCommand(query, connection)
+                Dim reader As MySqlDataReader = command.ExecuteReader()
+
+                ComboBoxbuscar.Items.Clear()
+                ComboBoxbuscar.Items.Add(New With {.Id = 0, .Nombre = "Todas las categorías"}) ' Opción para mostrar todos
+                While reader.Read()
+                    ComboBoxbuscar.Items.Add(New With {
+                    .Id = reader("id_categoria"),
+                    .Nombre = reader("nombre_categoria").ToString()
+                })
+                End While
+                ComboBoxbuscar.DisplayMember = "Nombre"
+                ComboBoxbuscar.ValueMember = "Id"
+                ComboBoxbuscar.SelectedIndex = 0
+                reader.Close()
+            Catch ex As Exception
+                MessageBox.Show("Error al cargar categorías de búsqueda: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub CargarProductosPorCategoria(idCategoria As Integer)
+        Using connection As New MySqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = "SELECT p.codigo, p.nombre, p.descripcion, p.marca, p.modelo, p.precio_compra, p.precio_venta, p.stock, pr.nombre AS proveedor, c.nombre_categoria AS categoria
+                       FROM productos p
+                       INNER JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor
+                       INNER JOIN categoria c ON p.id_categoria = c.id_categoria
+                       WHERE p.id_categoria = @id_categoria"
+                Dim command As New MySqlCommand(query, connection)
+                command.Parameters.AddWithValue("@id_categoria", idCategoria)
+
+                Dim adapter As New MySqlDataAdapter(command)
+                Dim table As New DataTable()
+                adapter.Fill(table)
+                tabladeproductos.DataSource = table
+            Catch ex As Exception
+                MessageBox.Show("Error al filtrar productos por categoría: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
 
     ' Método para cargar los proveedores en el ComboBox
     Private Sub CargarProveedores()
@@ -39,9 +113,10 @@ Public Class registraproducto
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
-                Dim query As String = "SELECT p.codigo, p.nombre, p.descripcion, p.marca, p.modelo, p.precio_compra, p.precio_venta, p.stock, pr.nombre AS proveedor 
-                                   FROM productos p 
-                                   INNER JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor"
+                Dim query As String = "SELECT p.codigo, p.nombre, p.descripcion, p.marca, p.modelo, p.precio_compra, p.precio_venta, p.stock, pr.nombre AS proveedor, c.nombre_categoria AS categoria
+                       FROM productos p
+                       INNER JOIN proveedores pr ON p.id_proveedor = pr.id_proveedor
+                       INNER JOIN categoria c ON p.id_categoria = c.id_categoria"
 
                 ' Agregar filtro de búsqueda si se proporciona un término
                 If Not String.IsNullOrEmpty(terminoBusqueda) Then
@@ -74,8 +149,8 @@ Public Class registraproducto
         txtprecioventa.Clear()
         txtstock.Clear()
         ComboBoxproveedores.SelectedIndex = -1
+        ComboBoxcategorias.SelectedIndex = -1
     End Sub
-
     ' Botón para agregar un nuevo producto
     Private Sub agregarbtn_Click(sender As Object, e As EventArgs) Handles agregarbtn.Click
         ' Validaciones
@@ -86,7 +161,8 @@ Public Class registraproducto
        String.IsNullOrEmpty(txtstock.Text.Trim()) OrElse
        String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
        String.IsNullOrEmpty(txtprecioventa.Text.Trim()) OrElse
-       ComboBoxproveedores.SelectedItem Is Nothing Then
+       ComboBoxproveedores.SelectedItem Is Nothing OrElse
+       ComboBoxcategorias.SelectedItem Is Nothing Then
             MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -105,8 +181,8 @@ Public Class registraproducto
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
-                Dim query As String = "INSERT INTO productos (codigo, nombre, descripcion, marca, modelo, precio_compra, precio_venta, stock, id_proveedor) 
-                                   VALUES (@codigo, @nombre, @descripcion, @marca, @modelo, @precio_compra, @precio_venta, @stock, @id_proveedor)"
+                Dim query As String = "INSERT INTO productos (codigo, nombre, descripcion, marca, modelo, precio_compra, precio_venta, stock, id_proveedor, id_categoria) 
+                                   VALUES (@codigo, @nombre, @descripcion, @marca, @modelo, @precio_compra, @precio_venta, @stock, @id_proveedor, @id_categoria)"
                 Dim command As New MySqlCommand(query, connection)
                 command.Parameters.AddWithValue("@codigo", txtcodigo.Text.Trim())
                 command.Parameters.AddWithValue("@nombre", txtproducto.Text.Trim())
@@ -117,6 +193,7 @@ Public Class registraproducto
                 command.Parameters.AddWithValue("@precio_venta", Convert.ToDecimal(txtprecioventa.Text.Trim()))
                 command.Parameters.AddWithValue("@stock", Convert.ToInt32(txtstock.Text.Trim()))
                 command.Parameters.AddWithValue("@id_proveedor", CType(ComboBoxproveedores.SelectedItem, Object).Id)
+                command.Parameters.AddWithValue("@id_categoria", CType(ComboBoxcategorias.SelectedItem, Object).Id)
 
                 command.ExecuteNonQuery()
                 MessageBox.Show("Producto agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -127,6 +204,7 @@ Public Class registraproducto
             End Try
         End Using
     End Sub
+
 
     ' Botón para editar un producto
     Private Sub editarbtn_Click(sender As Object, e As EventArgs) Handles editarbtn.Click
@@ -142,7 +220,8 @@ Public Class registraproducto
            String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
            String.IsNullOrEmpty(txtprecioventa.Text.Trim()) OrElse
            String.IsNullOrEmpty(txtstock.Text.Trim()) OrElse
-           ComboBoxproveedores.SelectedItem Is Nothing Then
+           ComboBoxproveedores.SelectedItem Is Nothing OrElse
+           ComboBoxcategorias.SelectedItem Is Nothing Then
                 MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return
             End If
@@ -173,7 +252,8 @@ Public Class registraproducto
                     connection.Open()
                     Dim query As String = "UPDATE productos 
                                        SET nombre = @nombre, descripcion = @descripcion, marca = @marca, modelo = @modelo, 
-                                           precio_compra = @precio_compra, precio_venta = @precio_venta, stock = @stock, id_proveedor = @id_proveedor 
+                                           precio_compra = @precio_compra, precio_venta = @precio_venta, stock = @stock, 
+                                           id_proveedor = @id_proveedor, id_categoria = @id_categoria
                                        WHERE codigo = @codigo"
                     Dim command As New MySqlCommand(query, connection)
                     command.Parameters.AddWithValue("@codigo", codigoProducto)
@@ -185,6 +265,7 @@ Public Class registraproducto
                     command.Parameters.AddWithValue("@precio_venta", precioVenta)
                     command.Parameters.AddWithValue("@stock", stock)
                     command.Parameters.AddWithValue("@id_proveedor", CType(ComboBoxproveedores.SelectedItem, Object).Id)
+                    command.Parameters.AddWithValue("@id_categoria", CType(ComboBoxcategorias.SelectedItem, Object).Id)
 
                     command.ExecuteNonQuery()
                     MessageBox.Show("Producto editado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -198,6 +279,7 @@ Public Class registraproducto
             MessageBox.Show("Seleccione un producto para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
+
 
     ' Botón para eliminar un producto
     Private Sub eliminarbtn_Click(sender As Object, e As EventArgs) Handles eliminarbtn.Click
@@ -230,7 +312,6 @@ Public Class registraproducto
         If tabladeproductos.SelectedRows.Count > 0 Then
             Dim selectedRow = tabladeproductos.SelectedRows(0)
 
-            ' Cargar los datos de la fila seleccionada en las cajas de texto
             txtcodigo.Text = selectedRow.Cells("codigo").Value.ToString()
             txtproducto.Text = selectedRow.Cells("nombre").Value.ToString()
             txtdescripcion.Text = selectedRow.Cells("descripcion").Value.ToString()
@@ -248,22 +329,31 @@ Public Class registraproducto
                     Exit For
                 End If
             Next
+
+            ' Seleccionar la categoría correspondiente en el ComboBox
+            Dim categoriaNombre = selectedRow.Cells("categoria").Value.ToString()
+            For Each item In ComboBoxcategorias.Items
+                If item.Nombre = categoriaNombre Then
+                    ComboBoxcategorias.SelectedItem = item
+                    Exit For
+                End If
+            Next
         End If
     End Sub
-    Private Sub ATRASBTN_Click(sender As Object, e As EventArgs) Handles ATRASBTN.Click
+    Private Sub ATRASBTN_Click(sender As Object, e As EventArgs)
         ' Verificar si ya existe una instancia del formulario menu
         For Each frm As Form In Application.OpenForms
             If TypeOf frm Is menu Then
                 frm.Show() ' Mostrar el formulario existente
-                Me.Close() ' Cerrar el formulario actual
+                Close() ' Cerrar el formulario actual
                 Return
             End If
         Next
 
         ' Si no existe, crear una nueva instancia del formulario menu
-        Dim formularioMenu As New menu()
+        Dim formularioMenu As New menu
         formularioMenu.Show()
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub buscarbtn_Click(sender As Object, e As EventArgs) Handles buscarbtn.Click
@@ -282,5 +372,22 @@ Public Class registraproducto
 
     Private Sub txtmodelo_TextChanged(sender As Object, e As EventArgs) Handles txtmodelo.TextChanged
 
+    End Sub
+
+    Private Sub ComboBoxcategorias_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxcategorias.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub ComboBoxbuscar_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxbuscar.SelectedIndexChanged
+        If ComboBoxbuscar.SelectedItem IsNot Nothing Then
+            Dim categoriaSeleccionada = CType(ComboBoxbuscar.SelectedItem, Object)
+            If categoriaSeleccionada.Id = 0 Then
+                ' Mostrar todos los productos
+                CargarProductos()
+            Else
+                ' Filtrar productos por la categoría seleccionada
+                CargarProductosPorCategoria(categoriaSeleccionada.Id)
+            End If
+        End If
     End Sub
 End Class

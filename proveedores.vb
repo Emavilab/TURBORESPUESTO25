@@ -162,20 +162,24 @@ Public Class proveedores
         CargarProveedores()
     End Sub
 
-    Private Sub ATRASBTNPRO_Click(sender As Object, e As EventArgs) Handles ATRASBTNPRO.Click
+    Private Sub ATRASBTNPRO_Click(sender As Object, e As EventArgs)
         ' Verificar si ya existe una instancia del formulario menu
         For Each frm As Form In Application.OpenForms
             If TypeOf frm Is menu Then
                 frm.Show() ' Mostrar el formulario existente
-                Me.Close() ' Cerrar el formulario actual
+                Close() ' Cerrar el formulario actual
                 Return
             End If
         Next
 
         ' Si no existe, crear una nueva instancia del formulario menu
-        Dim formularioMenu As New menu()
+        Dim formularioMenu As New menu
         formularioMenu.Show()
-        Me.Close()
+        Close()
+
+    End Sub
+
+    Private Sub tabladeproveedores_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles tabladeproveedores.CellContentClick
 
     End Sub
 End Class

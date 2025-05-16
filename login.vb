@@ -4,7 +4,8 @@ Public Class login
     Private Sub accederbtn_Click(sender As Object, e As EventArgs) Handles accederbtn.Click
         ' Cadena de conexión para MySQL
         Dim connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
-        Dim query As String = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = @usuario AND contraseña = @contraseña"
+        Dim query As String = "SELECT r.nombre_rol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id_rol WHERE u.nombre_usuario = @usuario AND u.contraseña = @contraseña"
+
 
         ' Obtener valores de los campos
         Dim usuario As String = txtusuario.Text.Trim()
@@ -21,16 +22,15 @@ Public Class login
             Try
                 connection.Open()
                 Using command As New MySqlCommand(query, connection)
-                    ' Parámetros para evitar inyección SQL
                     command.Parameters.AddWithValue("@usuario", usuario)
                     command.Parameters.AddWithValue("@contraseña", contraseña)
 
-                    ' Ejecutar consulta
-                    Dim count As Integer = Convert.ToInt32(command.ExecuteScalar())
+                    Dim rol As Object = command.ExecuteScalar()
 
-                    If count > 0 Then
+                    If rol IsNot Nothing Then
                         MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Dim siguienteFormulario As New menu()
+                        siguienteFormulario.RolUsuario = rol.ToString() ' Pasa el rol al menú
                         siguienteFormulario.Show()
                         Me.Hide()
                     Else
@@ -41,6 +41,8 @@ Public Class login
                 MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
+
+
     End Sub
 
     Private Sub salirbtn_Click(sender As Object, e As EventArgs) Handles salirbtn.Click
@@ -58,5 +60,9 @@ Public Class login
 
     Private Sub txtcontraseña_TextChanged(sender As Object, e As EventArgs) Handles txtcontraseña.TextChanged
         ' Este evento puede usarse para validaciones adicionales si es necesario
+    End Sub
+
+    Private Sub login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

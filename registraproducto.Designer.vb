@@ -45,9 +45,12 @@ Partial Class registraproducto
         agregarbtn = New Button()
         editarbtn = New Button()
         eliminarbtn = New Button()
-        ATRASBTN = New Button()
         txtbuscar = New TextBox()
         buscarbtn = New Button()
+        ComboBoxcategorias = New ComboBox()
+        Label11 = New Label()
+        Label12 = New Label()
+        ComboBoxbuscar = New ComboBox()
         CType(tabladeproductos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -221,10 +224,10 @@ Partial Class registraproducto
         tabladeproductos.AllowUserToAddRows = False
         tabladeproductos.AllowUserToDeleteRows = False
         tabladeproductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladeproductos.Location = New Point(26, 284)
+        tabladeproductos.Location = New Point(12, 301)
         tabladeproductos.Name = "tabladeproductos"
         tabladeproductos.ReadOnly = True
-        tabladeproductos.Size = New Size(937, 340)
+        tabladeproductos.Size = New Size(987, 340)
         tabladeproductos.TabIndex = 22
         ' 
         ' agregarbtn
@@ -233,7 +236,7 @@ Partial Class registraproducto
         agregarbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         agregarbtn.Image = My.Resources.Resources.anadir_al_carrito
         agregarbtn.ImageAlign = ContentAlignment.MiddleLeft
-        agregarbtn.Location = New Point(285, 630)
+        agregarbtn.Location = New Point(314, 647)
         agregarbtn.Name = "agregarbtn"
         agregarbtn.Size = New Size(116, 51)
         agregarbtn.TabIndex = 26
@@ -247,7 +250,7 @@ Partial Class registraproducto
         editarbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         editarbtn.Image = My.Resources.Resources.productos_cosmeticos
         editarbtn.ImageAlign = ContentAlignment.MiddleLeft
-        editarbtn.Location = New Point(416, 630)
+        editarbtn.Location = New Point(445, 647)
         editarbtn.Name = "editarbtn"
         editarbtn.Size = New Size(116, 51)
         editarbtn.TabIndex = 27
@@ -261,7 +264,7 @@ Partial Class registraproducto
         eliminarbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         eliminarbtn.Image = My.Resources.Resources.eliminar_producto
         eliminarbtn.ImageAlign = ContentAlignment.MiddleLeft
-        eliminarbtn.Location = New Point(552, 630)
+        eliminarbtn.Location = New Point(581, 647)
         eliminarbtn.Name = "eliminarbtn"
         eliminarbtn.Size = New Size(116, 51)
         eliminarbtn.TabIndex = 28
@@ -269,46 +272,72 @@ Partial Class registraproducto
         eliminarbtn.TextAlign = ContentAlignment.MiddleRight
         eliminarbtn.UseVisualStyleBackColor = False
         ' 
-        ' ATRASBTN
-        ' 
-        ATRASBTN.BackColor = Color.Lime
-        ATRASBTN.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        ATRASBTN.Image = My.Resources.Resources.flecha_izquierda
-        ATRASBTN.ImageAlign = ContentAlignment.TopCenter
-        ATRASBTN.Location = New Point(683, 630)
-        ATRASBTN.Name = "ATRASBTN"
-        ATRASBTN.Size = New Size(113, 51)
-        ATRASBTN.TabIndex = 29
-        ATRASBTN.Text = "VOLVER"
-        ATRASBTN.TextAlign = ContentAlignment.BottomCenter
-        ATRASBTN.UseVisualStyleBackColor = False
-        ' 
         ' txtbuscar
         ' 
         txtbuscar.BackColor = SystemColors.Menu
-        txtbuscar.Location = New Point(26, 246)
+        txtbuscar.Location = New Point(314, 262)
         txtbuscar.Name = "txtbuscar"
-        txtbuscar.Size = New Size(812, 23)
+        txtbuscar.Size = New Size(548, 23)
         txtbuscar.TabIndex = 30
         ' 
         ' buscarbtn
         ' 
         buscarbtn.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        buscarbtn.Location = New Point(854, 246)
+        buscarbtn.Location = New Point(868, 258)
         buscarbtn.Name = "buscarbtn"
         buscarbtn.Size = New Size(109, 23)
         buscarbtn.TabIndex = 31
         buscarbtn.Text = "Buscar"
         buscarbtn.UseVisualStyleBackColor = True
         ' 
+        ' ComboBoxcategorias
+        ' 
+        ComboBoxcategorias.FormattingEnabled = True
+        ComboBoxcategorias.Location = New Point(19, 217)
+        ComboBoxcategorias.Name = "ComboBoxcategorias"
+        ComboBoxcategorias.Size = New Size(276, 23)
+        ComboBoxcategorias.TabIndex = 33
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label11.Location = New Point(19, 200)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(86, 14)
+        Label11.TabIndex = 32
+        Label11.Text = "CATEGORIAS"
+        ' 
+        ' Label12
+        ' 
+        Label12.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label12.Location = New Point(20, 263)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(100, 23)
+        Label12.TabIndex = 34
+        Label12.Text = "Buscar por:"
+        ' 
+        ' ComboBoxbuscar
+        ' 
+        ComboBoxbuscar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        ComboBoxbuscar.FormattingEnabled = True
+        ComboBoxbuscar.Location = New Point(113, 262)
+        ComboBoxbuscar.Name = "ComboBoxbuscar"
+        ComboBoxbuscar.Size = New Size(182, 25)
+        ComboBoxbuscar.TabIndex = 35
+        ComboBoxbuscar.Text = "Categoria"
+        ' 
         ' registraproducto
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1015, 710)
+        Controls.Add(ComboBoxbuscar)
+        Controls.Add(Label12)
+        Controls.Add(ComboBoxcategorias)
+        Controls.Add(Label11)
         Controls.Add(buscarbtn)
         Controls.Add(txtbuscar)
-        Controls.Add(ATRASBTN)
         Controls.Add(eliminarbtn)
         Controls.Add(editarbtn)
         Controls.Add(agregarbtn)
@@ -365,4 +394,8 @@ Partial Class registraproducto
     Friend WithEvents ATRASBTN As Button
     Friend WithEvents txtbuscar As TextBox
     Friend WithEvents buscarbtn As Button
+    Friend WithEvents ComboBoxcategorias As ComboBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents ComboBoxbuscar As ComboBox
 End Class

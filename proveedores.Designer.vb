@@ -32,7 +32,6 @@ Partial Class proveedores
         txtNOMBREPRO = New TextBox()
         Label1 = New Label()
         tabladeproveedores = New DataGridView()
-        ATRASBTNPRO = New Button()
         eliminarprobtn = New Button()
         editarprobtn = New Button()
         agregarprobtn = New Button()
@@ -45,7 +44,7 @@ Partial Class proveedores
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(127, 9)
+        Label2.Location = New Point(244, 9)
         Label2.Name = "Label2"
         Label2.Size = New Size(544, 25)
         Label2.TabIndex = 3
@@ -53,7 +52,7 @@ Partial Class proveedores
         ' 
         ' txtUBICACION
         ' 
-        txtUBICACION.Location = New Point(12, 152)
+        txtUBICACION.Location = New Point(99, 140)
         txtUBICACION.Multiline = True
         txtUBICACION.Name = "txtUBICACION"
         txtUBICACION.Size = New Size(250, 47)
@@ -62,8 +61,8 @@ Partial Class proveedores
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.Location = New Point(12, 135)
+        Label6.Font = New Font("Tahoma", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.Location = New Point(99, 123)
         Label6.Name = "Label6"
         Label6.Size = New Size(75, 14)
         Label6.TabIndex = 19
@@ -71,7 +70,7 @@ Partial Class proveedores
         ' 
         ' txtEMAILPRO
         ' 
-        txtEMAILPRO.Location = New Point(569, 94)
+        txtEMAILPRO.Location = New Point(656, 82)
         txtEMAILPRO.Name = "txtEMAILPRO"
         txtEMAILPRO.Size = New Size(205, 23)
         txtEMAILPRO.TabIndex = 18
@@ -79,8 +78,8 @@ Partial Class proveedores
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.Location = New Point(569, 77)
+        Label5.Font = New Font("Tahoma", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label5.Location = New Point(656, 65)
         Label5.Name = "Label5"
         Label5.Size = New Size(46, 14)
         Label5.TabIndex = 17
@@ -88,7 +87,7 @@ Partial Class proveedores
         ' 
         ' txtTELEFONOPRO
         ' 
-        txtTELEFONOPRO.Location = New Point(303, 94)
+        txtTELEFONOPRO.Location = New Point(390, 82)
         txtTELEFONOPRO.Name = "txtTELEFONOPRO"
         txtTELEFONOPRO.Size = New Size(228, 23)
         txtTELEFONOPRO.TabIndex = 16
@@ -96,8 +95,8 @@ Partial Class proveedores
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(303, 77)
+        Label3.Font = New Font("Tahoma", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label3.Location = New Point(390, 65)
         Label3.Name = "Label3"
         Label3.Size = New Size(67, 14)
         Label3.TabIndex = 15
@@ -105,7 +104,7 @@ Partial Class proveedores
         ' 
         ' txtNOMBREPRO
         ' 
-        txtNOMBREPRO.Location = New Point(12, 94)
+        txtNOMBREPRO.Location = New Point(99, 82)
         txtNOMBREPRO.Name = "txtNOMBREPRO"
         txtNOMBREPRO.Size = New Size(250, 23)
         txtNOMBREPRO.TabIndex = 14
@@ -113,8 +112,8 @@ Partial Class proveedores
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(12, 77)
+        Label1.Font = New Font("Tahoma", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(99, 65)
         Label1.Name = "Label1"
         Label1.Size = New Size(138, 14)
         Label1.TabIndex = 13
@@ -122,36 +121,19 @@ Partial Class proveedores
         ' 
         ' tabladeproveedores
         ' 
-        tabladeproveedores.AllowUserToAddRows = False
-        tabladeproveedores.AllowUserToDeleteRows = False
         tabladeproveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladeproveedores.Location = New Point(12, 278)
+        tabladeproveedores.Location = New Point(99, 309)
         tabladeproveedores.Name = "tabladeproveedores"
-        tabladeproveedores.ReadOnly = True
         tabladeproveedores.Size = New Size(776, 202)
         tabladeproveedores.TabIndex = 21
-        ' 
-        ' ATRASBTNPRO
-        ' 
-        ATRASBTNPRO.BackColor = Color.Lime
-        ATRASBTNPRO.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        ATRASBTNPRO.Image = My.Resources.Resources.flecha_izquierda
-        ATRASBTNPRO.ImageAlign = ContentAlignment.TopCenter
-        ATRASBTNPRO.Location = New Point(525, 486)
-        ATRASBTNPRO.Name = "ATRASBTNPRO"
-        ATRASBTNPRO.Size = New Size(113, 51)
-        ATRASBTNPRO.TabIndex = 33
-        ATRASBTNPRO.Text = "VOLVER"
-        ATRASBTNPRO.TextAlign = ContentAlignment.BottomCenter
-        ATRASBTNPRO.UseVisualStyleBackColor = False
         ' 
         ' eliminarprobtn
         ' 
         eliminarprobtn.BackColor = Color.Lime
-        eliminarprobtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        eliminarprobtn.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         eliminarprobtn.Image = My.Resources.Resources.eliminar_producto
         eliminarprobtn.ImageAlign = ContentAlignment.MiddleLeft
-        eliminarprobtn.Location = New Point(394, 486)
+        eliminarprobtn.Location = New Point(554, 544)
         eliminarprobtn.Name = "eliminarprobtn"
         eliminarprobtn.Size = New Size(116, 51)
         eliminarprobtn.TabIndex = 32
@@ -162,10 +144,10 @@ Partial Class proveedores
         ' editarprobtn
         ' 
         editarprobtn.BackColor = Color.Lime
-        editarprobtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        editarprobtn.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         editarprobtn.Image = My.Resources.Resources.productos_cosmeticos
         editarprobtn.ImageAlign = ContentAlignment.MiddleLeft
-        editarprobtn.Location = New Point(258, 486)
+        editarprobtn.Location = New Point(418, 544)
         editarprobtn.Name = "editarprobtn"
         editarprobtn.Size = New Size(116, 51)
         editarprobtn.TabIndex = 31
@@ -176,10 +158,10 @@ Partial Class proveedores
         ' agregarprobtn
         ' 
         agregarprobtn.BackColor = Color.Lime
-        agregarprobtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        agregarprobtn.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         agregarprobtn.Image = My.Resources.Resources.anadir_al_carrito
         agregarprobtn.ImageAlign = ContentAlignment.MiddleLeft
-        agregarprobtn.Location = New Point(127, 486)
+        agregarprobtn.Location = New Point(287, 544)
         agregarprobtn.Name = "agregarprobtn"
         agregarprobtn.Size = New Size(116, 51)
         agregarprobtn.TabIndex = 30
@@ -189,7 +171,7 @@ Partial Class proveedores
         ' 
         ' btnbuscarpro
         ' 
-        btnbuscarpro.Location = New Point(699, 234)
+        btnbuscarpro.Location = New Point(786, 265)
         btnbuscarpro.Name = "btnbuscarpro"
         btnbuscarpro.Size = New Size(75, 28)
         btnbuscarpro.TabIndex = 34
@@ -198,19 +180,18 @@ Partial Class proveedores
         ' 
         ' txtbuscarpro
         ' 
-        txtbuscarpro.Location = New Point(18, 239)
+        txtbuscarpro.Location = New Point(105, 270)
         txtbuscarpro.Name = "txtbuscarpro"
         txtbuscarpro.Size = New Size(675, 23)
         txtbuscarpro.TabIndex = 35
         ' 
         ' proveedores
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 573)
+        ClientSize = New Size(1015, 710)
         Controls.Add(txtbuscarpro)
         Controls.Add(btnbuscarpro)
-        Controls.Add(ATRASBTNPRO)
         Controls.Add(eliminarprobtn)
         Controls.Add(editarprobtn)
         Controls.Add(agregarprobtn)
@@ -241,7 +222,6 @@ Partial Class proveedores
     Friend WithEvents txtNOMBREPRO As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents tabladeproveedores As DataGridView
-    Friend WithEvents ATRASBTNPRO As Button
     Friend WithEvents eliminarprobtn As Button
     Friend WithEvents editarprobtn As Button
     Friend WithEvents agregarprobtn As Button
