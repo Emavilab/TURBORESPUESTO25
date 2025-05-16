@@ -121,6 +121,7 @@ Partial Class proveedores
         ' 
         ' tabladeproveedores
         ' 
+        tabladeproveedores.BackgroundColor = Color.White
         tabladeproveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         tabladeproveedores.Location = New Point(99, 309)
         tabladeproveedores.Name = "tabladeproveedores"

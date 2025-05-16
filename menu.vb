@@ -88,6 +88,33 @@ Public Class menu
     End Sub
 
     Private Sub Labelventas_Click(sender As Object, e As EventArgs) Handles Labelventas.Click
+        ' Limpiar el panel contenedor
+        contenedor.Controls.Clear()
 
+        ' Crear una instancia del formulario
+        Dim frm As New registrarventa()
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Agregar el formulario al panel y mostrarlo
+        contenedor.Controls.Add(frm)
+        frm.Show()
+
+    End Sub
+
+    Private Sub Labelcompras_Click(sender As Object, e As EventArgs) Handles Labelcompras.Click
+        ' Limpiar el panel contenedor
+        contenedor.Controls.Clear()
+
+        ' Crear una instancia del formulario
+        Dim frm As New compras()
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Agregar el formulario al panel y mostrarlo
+        contenedor.Controls.Add(frm)
+        frm.Show()
     End Sub
 End Class
