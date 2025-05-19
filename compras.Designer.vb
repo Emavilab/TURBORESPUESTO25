@@ -46,14 +46,16 @@ Partial Class compras
         Label6 = New Label()
         btnagergartabla = New Button()
         tabladecompras = New DataGridView()
-        Column1 = New DataGridViewTextBoxColumn()
-        Column2 = New DataGridViewTextBoxColumn()
-        Column3 = New DataGridViewTextBoxColumn()
-        Column4 = New DataGridViewTextBoxColumn()
         txttotal = New TextBox()
         Label10 = New Label()
         btnregistrar = New Button()
         btnverdetalle = New Button()
+        id_producto = New DataGridViewTextBoxColumn()
+        Column1 = New DataGridViewTextBoxColumn()
+        Column2 = New DataGridViewTextBoxColumn()
+        Column3 = New DataGridViewTextBoxColumn()
+        Column4 = New DataGridViewTextBoxColumn()
+        Eliminar = New DataGridViewTextBoxColumn()
         GroupBox1.SuspendLayout()
         GroupBox2.SuspendLayout()
         GroupBox3.SuspendLayout()
@@ -282,39 +284,13 @@ Partial Class compras
         ' 
         ' tabladecompras
         ' 
-        tabladecompras.AllowUserToAddRows = False
         tabladecompras.BackgroundColor = Color.White
         tabladecompras.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladecompras.Columns.AddRange(New DataGridViewColumn() {Column1, Column2, Column3, Column4})
+        tabladecompras.Columns.AddRange(New DataGridViewColumn() {id_producto, Column1, Column2, Column3, Column4, Eliminar})
         tabladecompras.Location = New Point(12, 228)
         tabladecompras.Name = "tabladecompras"
-        tabladecompras.ReadOnly = True
         tabladecompras.Size = New Size(887, 381)
         tabladecompras.TabIndex = 21
-        ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "Producto"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = "Precio compra"
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
-        ' 
-        ' Column3
-        ' 
-        Column3.HeaderText = "Cantidad"
-        Column3.Name = "Column3"
-        Column3.ReadOnly = True
-        ' 
-        ' Column4
-        ' 
-        Column4.HeaderText = "Sub Total"
-        Column4.Name = "Column4"
-        Column4.ReadOnly = True
         ' 
         ' txttotal
         ' 
@@ -358,6 +334,37 @@ Partial Class compras
         btnverdetalle.Text = "Ver detalles"
         btnverdetalle.TextAlign = ContentAlignment.BottomCenter
         btnverdetalle.UseVisualStyleBackColor = True
+        ' 
+        ' id_producto
+        ' 
+        id_producto.HeaderText = "id_producto"
+        id_producto.Name = "id_producto"
+        id_producto.Visible = False
+        ' 
+        ' Column1
+        ' 
+        Column1.HeaderText = "Producto"
+        Column1.Name = "Column1"
+        ' 
+        ' Column2
+        ' 
+        Column2.HeaderText = "Precio compra"
+        Column2.Name = "Column2"
+        ' 
+        ' Column3
+        ' 
+        Column3.HeaderText = "Cantidad"
+        Column3.Name = "Column3"
+        ' 
+        ' Column4
+        ' 
+        Column4.HeaderText = "Sub Total"
+        Column4.Name = "Column4"
+        ' 
+        ' Eliminar
+        ' 
+        Eliminar.HeaderText = "Eliminar"
+        Eliminar.Name = "Eliminar"
         ' 
         ' compras
         ' 
@@ -417,8 +424,10 @@ Partial Class compras
     Friend WithEvents Label10 As Label
     Friend WithEvents btnregistrar As Button
     Friend WithEvents btnverdetalle As Button
+    Friend WithEvents id_producto As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Eliminar As DataGridViewTextBoxColumn
 End Class

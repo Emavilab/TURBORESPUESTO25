@@ -24,11 +24,9 @@ Partial Class buscarproveedorcompra
     Private Sub InitializeComponent()
         Label2 = New Label()
         Panel1 = New Panel()
-        txtbuscarpro = New TextBox()
         btnbuscardetallecompra = New Button()
+        txtbuscarpro = New TextBox()
         tabladeproveedores = New DataGridView()
-        Column1 = New DataGridViewTextBoxColumn()
-        Column2 = New DataGridViewTextBoxColumn()
         Panel1.SuspendLayout()
         CType(tabladeproveedores, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -53,13 +51,6 @@ Partial Class buscarproveedorcompra
         Panel1.Size = New Size(473, 66)
         Panel1.TabIndex = 7
         ' 
-        ' txtbuscarpro
-        ' 
-        txtbuscarpro.Location = New Point(14, 32)
-        txtbuscarpro.Name = "txtbuscarpro"
-        txtbuscarpro.Size = New Size(336, 23)
-        txtbuscarpro.TabIndex = 37
-        ' 
         ' btnbuscardetallecompra
         ' 
         btnbuscardetallecompra.Image = My.Resources.Resources.lupa
@@ -69,29 +60,23 @@ Partial Class buscarproveedorcompra
         btnbuscardetallecompra.TabIndex = 38
         btnbuscardetallecompra.UseVisualStyleBackColor = True
         ' 
+        ' txtbuscarpro
+        ' 
+        txtbuscarpro.Location = New Point(14, 32)
+        txtbuscarpro.Name = "txtbuscarpro"
+        txtbuscarpro.Size = New Size(336, 23)
+        txtbuscarpro.TabIndex = 37
+        ' 
         ' tabladeproveedores
         ' 
         tabladeproveedores.AllowUserToAddRows = False
         tabladeproveedores.BackgroundColor = Color.White
         tabladeproveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladeproveedores.Columns.AddRange(New DataGridViewColumn() {Column1, Column2})
         tabladeproveedores.Location = New Point(12, 132)
         tabladeproveedores.Name = "tabladeproveedores"
         tabladeproveedores.ReadOnly = True
         tabladeproveedores.Size = New Size(473, 178)
         tabladeproveedores.TabIndex = 22
-        ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "Nombre proveedor"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = "telefono"
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
         ' 
         ' buscarproveedorcompra
         ' 
@@ -117,6 +102,4 @@ Partial Class buscarproveedorcompra
     Friend WithEvents txtbuscarpro As TextBox
     Friend WithEvents btnbuscardetallecompra As Button
     Friend WithEvents tabladeproveedores As DataGridView
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
 End Class

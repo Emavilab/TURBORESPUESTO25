@@ -1,6 +1,8 @@
-﻿
+﻿Public Class menu
 
-Public Class menu
+    Public Property RolUsuario As String
+    Public Property IdUsuario As Integer
+
     Private Sub Button1_Click(sender As Object, e As EventArgs)
         ' Crear una nueva instancia del formulario registraproducto
         Dim formularioRegistroProducto As New registraproducto
@@ -39,7 +41,7 @@ Public Class menu
 
     End Sub
 
-    Public Property RolUsuario As String
+
 
     Private Sub menu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         USUARIOLOG.Text = RolUsuario
@@ -102,18 +104,15 @@ Public Class menu
         frm.Show()
 
     End Sub
+    Public Property IdUsuarioLogueado As Integer
+
 
     Private Sub Labelcompras_Click(sender As Object, e As EventArgs) Handles Labelcompras.Click
-        ' Limpiar el panel contenedor
         contenedor.Controls.Clear()
-
-        ' Crear una instancia del formulario
-        Dim frm As New compras()
+        Dim frm As New compras(IdUsuarioLogueado)
         frm.TopLevel = False
         frm.FormBorderStyle = FormBorderStyle.None
         frm.Dock = DockStyle.Fill
-
-        ' Agregar el formulario al panel y mostrarlo
         contenedor.Controls.Add(frm)
         frm.Show()
     End Sub

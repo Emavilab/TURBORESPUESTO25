@@ -1,23 +1,18 @@
-﻿Imports MySql.Data.MySqlClient
-
+﻿
+Imports MySql.Data.MySqlClient
 Public Class login
     Private Sub accederbtn_Click(sender As Object, e As EventArgs) Handles accederbtn.Click
-        ' Cadena de conexión para MySQL
         Dim connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
-        Dim query As String = "SELECT r.nombre_rol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id_rol WHERE u.nombre_usuario = @usuario AND u.contraseña = @contraseña"
+        Dim query As String = "SELECT u.id_usuario, r.nombre_rol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id_rol WHERE u.nombre_usuario = @usuario AND u.contraseña = @contraseña"
 
-
-        ' Obtener valores de los campos
         Dim usuario As String = txtusuario.Text.Trim()
         Dim contraseña As String = txtcontraseña.Text.Trim()
 
-        ' Validación de campos vacíos
         If String.IsNullOrEmpty(usuario) OrElse String.IsNullOrEmpty(contraseña) Then
             MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Conexión y validación
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
@@ -25,24 +20,26 @@ Public Class login
                     command.Parameters.AddWithValue("@usuario", usuario)
                     command.Parameters.AddWithValue("@contraseña", contraseña)
 
-                    Dim rol As Object = command.ExecuteScalar()
+                    Using reader As MySqlDataReader = command.ExecuteReader()
+                        If reader.Read() Then
+                            Dim idUsuario As Integer = Convert.ToInt32(reader("id_usuario"))
+                            Dim rol As String = reader("nombre_rol").ToString()
 
-                    If rol IsNot Nothing Then
-                        MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Dim siguienteFormulario As New menu()
-                        siguienteFormulario.RolUsuario = rol.ToString() ' Pasa el rol al menú
-                        siguienteFormulario.Show()
-                        Me.Hide()
-                    Else
-                        MessageBox.Show("Usuario o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End If
+                            MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Dim siguienteFormulario As New menu()
+                            siguienteFormulario.RolUsuario = rol
+                            siguienteFormulario.IdUsuarioLogueado = idUsuario ' <-- AQUÍ SE ASIGNA
+                            siguienteFormulario.Show()
+                            Me.Hide()
+                        Else
+                            MessageBox.Show("Usuario o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    End Using
                 End Using
             Catch ex As Exception
                 MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
-
-
     End Sub
 
     Private Sub salirbtn_Click(sender As Object, e As EventArgs) Handles salirbtn.Click

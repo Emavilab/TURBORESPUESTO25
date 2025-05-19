@@ -25,13 +25,10 @@ Partial Class buscarproductocompra
         tabladeproveedores = New DataGridView()
         Panel1 = New Panel()
         btnbuscardetallecompra = New Button()
-        Label2 = New Label()
-        ComboBoxbuscar = New ComboBox()
         Label12 = New Label()
         txtbuscar = New TextBox()
-        Column3 = New DataGridViewTextBoxColumn()
-        Column1 = New DataGridViewTextBoxColumn()
-        CATEGORIA = New DataGridViewTextBoxColumn()
+        ComboBoxbuscar = New ComboBox()
+        Label2 = New Label()
         CType(tabladeproveedores, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
         SuspendLayout()
@@ -41,11 +38,10 @@ Partial Class buscarproductocompra
         tabladeproveedores.AllowUserToAddRows = False
         tabladeproveedores.BackgroundColor = Color.White
         tabladeproveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladeproveedores.Columns.AddRange(New DataGridViewColumn() {Column3, Column1, CATEGORIA})
         tabladeproveedores.Location = New Point(12, 132)
         tabladeproveedores.Name = "tabladeproveedores"
         tabladeproveedores.ReadOnly = True
-        tabladeproveedores.Size = New Size(532, 178)
+        tabladeproveedores.Size = New Size(662, 178)
         tabladeproveedores.TabIndex = 25
         ' 
         ' Panel1
@@ -57,37 +53,17 @@ Partial Class buscarproductocompra
         Panel1.Controls.Add(ComboBoxbuscar)
         Panel1.Location = New Point(12, 46)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(532, 66)
+        Panel1.Size = New Size(662, 66)
         Panel1.TabIndex = 24
         ' 
         ' btnbuscardetallecompra
         ' 
         btnbuscardetallecompra.Image = My.Resources.Resources.lupa
-        btnbuscardetallecompra.Location = New Point(427, 12)
+        btnbuscardetallecompra.Location = New Point(559, 12)
         btnbuscardetallecompra.Name = "btnbuscardetallecompra"
         btnbuscardetallecompra.Size = New Size(87, 36)
         btnbuscardetallecompra.TabIndex = 38
         btnbuscardetallecompra.UseVisualStyleBackColor = True
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(12, 9)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(240, 25)
-        Label2.TabIndex = 23
-        Label2.Text = "LISTA DE PRODUCTOS"
-        ' 
-        ' ComboBoxbuscar
-        ' 
-        ComboBoxbuscar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        ComboBoxbuscar.FormattingEnabled = True
-        ComboBoxbuscar.Location = New Point(101, 18)
-        ComboBoxbuscar.Name = "ComboBoxbuscar"
-        ComboBoxbuscar.Size = New Size(107, 25)
-        ComboBoxbuscar.TabIndex = 39
-        ComboBoxbuscar.Text = "Categoria"
         ' 
         ' Label12
         ' 
@@ -101,34 +77,36 @@ Partial Class buscarproductocompra
         ' txtbuscar
         ' 
         txtbuscar.BackColor = SystemColors.Menu
-        txtbuscar.Location = New Point(214, 18)
+        txtbuscar.Location = New Point(318, 20)
         txtbuscar.Name = "txtbuscar"
-        txtbuscar.Size = New Size(197, 23)
+        txtbuscar.Size = New Size(226, 23)
         txtbuscar.TabIndex = 36
         ' 
-        ' Column3
+        ' ComboBoxbuscar
         ' 
-        Column3.HeaderText = "CODIGO"
-        Column3.Name = "Column3"
-        Column3.ReadOnly = True
+        ComboBoxbuscar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        ComboBoxbuscar.FormattingEnabled = True
+        ComboBoxbuscar.Location = New Point(101, 18)
+        ComboBoxbuscar.Name = "ComboBoxbuscar"
+        ComboBoxbuscar.Size = New Size(199, 25)
+        ComboBoxbuscar.TabIndex = 39
+        ComboBoxbuscar.Text = "Categoria"
         ' 
-        ' Column1
+        ' Label2
         ' 
-        Column1.HeaderText = "PRODUCTO"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        ' 
-        ' CATEGORIA
-        ' 
-        CATEGORIA.HeaderText = "CATEGORIA"
-        CATEGORIA.Name = "CATEGORIA"
-        CATEGORIA.ReadOnly = True
+        Label2.AutoSize = True
+        Label2.Font = New Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(12, 9)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(240, 25)
+        Label2.TabIndex = 23
+        Label2.Text = "LISTA DE PRODUCTOS"
         ' 
         ' buscarproductocompra
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(561, 333)
+        ClientSize = New Size(690, 333)
         Controls.Add(tabladeproveedores)
         Controls.Add(Panel1)
         Controls.Add(Label2)
@@ -148,7 +126,4 @@ Partial Class buscarproductocompra
     Friend WithEvents Label12 As Label
     Friend WithEvents ComboBoxbuscar As ComboBox
     Friend WithEvents txtbuscar As TextBox
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents CATEGORIA As DataGridViewTextBoxColumn
 End Class
