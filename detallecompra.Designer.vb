@@ -32,15 +32,11 @@ Partial Class detallecompra
         txtnombrepro = New TextBox()
         Label3 = New Label()
         GroupBox1 = New GroupBox()
+        txtusuario = New TextBox()
         txtFECHA = New TextBox()
-        Label1 = New Label()
-        TextBox2 = New TextBox()
         Label11 = New Label()
+        Label1 = New Label()
         tabladettalecompra = New DataGridView()
-        Column1 = New DataGridViewTextBoxColumn()
-        Column2 = New DataGridViewTextBoxColumn()
-        Column3 = New DataGridViewTextBoxColumn()
-        Column4 = New DataGridViewTextBoxColumn()
         txtmontototal = New TextBox()
         Label5 = New Label()
         btndescargar = New Button()
@@ -134,7 +130,7 @@ Partial Class detallecompra
         ' 
         ' GroupBox1
         ' 
-        GroupBox1.Controls.Add(TextBox2)
+        GroupBox1.Controls.Add(txtusuario)
         GroupBox1.Controls.Add(txtFECHA)
         GroupBox1.Controls.Add(Label11)
         GroupBox1.Controls.Add(Label1)
@@ -145,29 +141,19 @@ Partial Class detallecompra
         GroupBox1.TabStop = False
         GroupBox1.Text = "Informacion de compra"
         ' 
+        ' txtusuario
+        ' 
+        txtusuario.Location = New Point(235, 36)
+        txtusuario.Name = "txtusuario"
+        txtusuario.Size = New Size(207, 23)
+        txtusuario.TabIndex = 21
+        ' 
         ' txtFECHA
         ' 
         txtFECHA.Location = New Point(6, 36)
         txtFECHA.Name = "txtFECHA"
         txtFECHA.Size = New Size(100, 23)
         txtFECHA.TabIndex = 16
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(6, 19)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(45, 14)
-        Label1.TabIndex = 15
-        Label1.Text = "Fecha:"
-        ' 
-        ' TextBox2
-        ' 
-        TextBox2.Location = New Point(235, 36)
-        TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(207, 23)
-        TextBox2.TabIndex = 21
         ' 
         ' Label11
         ' 
@@ -179,41 +165,24 @@ Partial Class detallecompra
         Label11.TabIndex = 20
         Label11.Text = "Usuario:"
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(6, 19)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(45, 14)
+        Label1.TabIndex = 15
+        Label1.Text = "Fecha:"
+        ' 
         ' tabladettalecompra
         ' 
-        tabladettalecompra.AllowUserToAddRows = False
         tabladettalecompra.BackgroundColor = Color.White
         tabladettalecompra.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladettalecompra.Columns.AddRange(New DataGridViewColumn() {Column1, Column2, Column3, Column4})
         tabladettalecompra.Location = New Point(12, 256)
         tabladettalecompra.Name = "tabladettalecompra"
-        tabladettalecompra.ReadOnly = True
         tabladettalecompra.Size = New Size(719, 161)
         tabladettalecompra.TabIndex = 25
-        ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "Producto"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = "Precio compra"
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
-        ' 
-        ' Column3
-        ' 
-        Column3.HeaderText = "Cantidad"
-        Column3.Name = "Column3"
-        Column3.ReadOnly = True
-        ' 
-        ' Column4
-        ' 
-        Column4.HeaderText = "Sub total"
-        Column4.Name = "Column4"
-        Column4.ReadOnly = True
         ' 
         ' txtmontototal
         ' 
@@ -281,15 +250,11 @@ Partial Class detallecompra
     Friend WithEvents txtnombrepro As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtusuario As TextBox
     Friend WithEvents txtFECHA As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents tabladettalecompra As DataGridView
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents txtmontototal As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents btndescargar As Button

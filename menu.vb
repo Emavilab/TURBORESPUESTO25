@@ -90,16 +90,11 @@
     End Sub
 
     Private Sub Labelventas_Click(sender As Object, e As EventArgs) Handles Labelventas.Click
-        ' Limpiar el panel contenedor
         contenedor.Controls.Clear()
-
-        ' Crear una instancia del formulario
-        Dim frm As New registrarventa()
+        Dim frm As New registrarventa(IdUsuarioLogueado)
         frm.TopLevel = False
         frm.FormBorderStyle = FormBorderStyle.None
         frm.Dock = DockStyle.Fill
-
-        ' Agregar el formulario al panel y mostrarlo
         contenedor.Controls.Add(frm)
         frm.Show()
 
@@ -113,6 +108,21 @@
         frm.TopLevel = False
         frm.FormBorderStyle = FormBorderStyle.None
         frm.Dock = DockStyle.Fill
+        contenedor.Controls.Add(frm)
+        frm.Show()
+    End Sub
+
+    Private Sub Labelclientes_Click(sender As Object, e As EventArgs) Handles Labelclientes.Click
+        ' Limpiar el panel contenedor
+        contenedor.Controls.Clear()
+
+        ' Crear una instancia del formulario
+        Dim frm As New registrarcliente()
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Agregar el formulario al panel y mostrarlo
         contenedor.Controls.Add(frm)
         frm.Show()
     End Sub

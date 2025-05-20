@@ -27,11 +27,15 @@ Partial Class registrarventa
         txttotal = New TextBox()
         Label10 = New Label()
         tabladecompras = New DataGridView()
+        Column1 = New DataGridViewTextBoxColumn()
+        Column2 = New DataGridViewTextBoxColumn()
+        Column3 = New DataGridViewTextBoxColumn()
+        Column4 = New DataGridViewTextBoxColumn()
         btnagergartabla = New Button()
         GroupBox3 = New GroupBox()
         NumericUpDowncantiddad = New NumericUpDown()
         Label9 = New Label()
-        txtprecioven = New TextBox()
+        txtstock = New TextBox()
         Label8 = New Label()
         txtpreciocom = New TextBox()
         Label7 = New Label()
@@ -41,21 +45,24 @@ Partial Class registrarventa
         txtcodigoproducto = New TextBox()
         Label6 = New Label()
         GroupBox2 = New GroupBox()
-        btnbuscarpro = New Button()
-        txttelefonopro = New TextBox()
+        btnbuscarcliente = New Button()
+        txtdnicliente = New TextBox()
         Label4 = New Label()
-        txtnombrepro = New TextBox()
+        txtnombrecliente = New TextBox()
         Label3 = New Label()
         GroupBox1 = New GroupBox()
         txtFECHA = New TextBox()
         Label1 = New Label()
         Label2 = New Label()
-        TextBox1 = New TextBox()
+        txtpagacon = New TextBox()
         Label11 = New Label()
-        Column1 = New DataGridViewTextBoxColumn()
-        Column2 = New DataGridViewTextBoxColumn()
-        Column3 = New DataGridViewTextBoxColumn()
-        Column4 = New DataGridViewTextBoxColumn()
+        txtimpuesto = New TextBox()
+        Label12 = New Label()
+        txtcambio = New TextBox()
+        Label13 = New Label()
+        txtdescuento = New TextBox()
+        Label14 = New Label()
+        Label15 = New Label()
         CType(tabladecompras, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox3.SuspendLayout()
         CType(NumericUpDowncantiddad, ComponentModel.ISupportInitialize).BeginInit()
@@ -81,7 +88,7 @@ Partial Class registrarventa
         btnregistrar.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnregistrar.Image = My.Resources.Resources.etiqueta_de_precio1
         btnregistrar.ImageAlign = ContentAlignment.TopCenter
-        btnregistrar.Location = New Point(907, 573)
+        btnregistrar.Location = New Point(803, 627)
         btnregistrar.Name = "btnregistrar"
         btnregistrar.Size = New Size(97, 48)
         btnregistrar.TabIndex = 36
@@ -91,7 +98,7 @@ Partial Class registrarventa
         ' 
         ' txttotal
         ' 
-        txttotal.Location = New Point(907, 401)
+        txttotal.Location = New Point(912, 320)
         txttotal.Name = "txttotal"
         txttotal.Size = New Size(97, 23)
         txttotal.TabIndex = 38
@@ -100,7 +107,7 @@ Partial Class registrarventa
         ' 
         Label10.AutoSize = True
         Label10.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label10.Location = New Point(907, 384)
+        Label10.Location = New Point(912, 303)
         Label10.Name = "Label10"
         Label10.Size = New Size(92, 14)
         Label10.TabIndex = 37
@@ -118,6 +125,30 @@ Partial Class registrarventa
         tabladecompras.Size = New Size(887, 381)
         tabladecompras.TabIndex = 35
         ' 
+        ' Column1
+        ' 
+        Column1.HeaderText = "Producto"
+        Column1.Name = "Column1"
+        Column1.ReadOnly = True
+        ' 
+        ' Column2
+        ' 
+        Column2.HeaderText = "Precio venta"
+        Column2.Name = "Column2"
+        Column2.ReadOnly = True
+        ' 
+        ' Column3
+        ' 
+        Column3.HeaderText = "Cantidad"
+        Column3.Name = "Column3"
+        Column3.ReadOnly = True
+        ' 
+        ' Column4
+        ' 
+        Column4.HeaderText = "Sub Total"
+        Column4.Name = "Column4"
+        Column4.ReadOnly = True
+        ' 
         ' btnagergartabla
         ' 
         btnagergartabla.Image = My.Resources.Resources.boton_mas
@@ -131,7 +162,7 @@ Partial Class registrarventa
         ' 
         GroupBox3.Controls.Add(NumericUpDowncantiddad)
         GroupBox3.Controls.Add(Label9)
-        GroupBox3.Controls.Add(txtprecioven)
+        GroupBox3.Controls.Add(txtstock)
         GroupBox3.Controls.Add(Label8)
         GroupBox3.Controls.Add(txtpreciocom)
         GroupBox3.Controls.Add(Label7)
@@ -164,12 +195,12 @@ Partial Class registrarventa
         Label9.TabIndex = 24
         Label9.Text = "Cantidad"
         ' 
-        ' txtprecioven
+        ' txtstock
         ' 
-        txtprecioven.Location = New Point(657, 36)
-        txtprecioven.Name = "txtprecioven"
-        txtprecioven.Size = New Size(97, 23)
-        txtprecioven.TabIndex = 23
+        txtstock.Location = New Point(657, 36)
+        txtstock.Name = "txtstock"
+        txtstock.Size = New Size(97, 23)
+        txtstock.TabIndex = 23
         ' 
         ' Label8
         ' 
@@ -244,10 +275,10 @@ Partial Class registrarventa
         ' 
         ' GroupBox2
         ' 
-        GroupBox2.Controls.Add(btnbuscarpro)
-        GroupBox2.Controls.Add(txttelefonopro)
+        GroupBox2.Controls.Add(btnbuscarcliente)
+        GroupBox2.Controls.Add(txtdnicliente)
         GroupBox2.Controls.Add(Label4)
-        GroupBox2.Controls.Add(txtnombrepro)
+        GroupBox2.Controls.Add(txtnombrecliente)
         GroupBox2.Controls.Add(Label3)
         GroupBox2.Location = New Point(442, 53)
         GroupBox2.Name = "GroupBox2"
@@ -256,21 +287,21 @@ Partial Class registrarventa
         GroupBox2.TabStop = False
         GroupBox2.Text = "Informacion de Cliente"
         ' 
-        ' btnbuscarpro
+        ' btnbuscarcliente
         ' 
-        btnbuscarpro.Image = My.Resources.Resources.lupa
-        btnbuscarpro.Location = New Point(219, 22)
-        btnbuscarpro.Name = "btnbuscarpro"
-        btnbuscarpro.Size = New Size(87, 36)
-        btnbuscarpro.TabIndex = 19
-        btnbuscarpro.UseVisualStyleBackColor = True
+        btnbuscarcliente.Image = My.Resources.Resources.lupa
+        btnbuscarcliente.Location = New Point(219, 22)
+        btnbuscarcliente.Name = "btnbuscarcliente"
+        btnbuscarcliente.Size = New Size(87, 36)
+        btnbuscarcliente.TabIndex = 19
+        btnbuscarcliente.UseVisualStyleBackColor = True
         ' 
-        ' txttelefonopro
+        ' txtdnicliente
         ' 
-        txttelefonopro.Location = New Point(312, 36)
-        txttelefonopro.Name = "txttelefonopro"
-        txttelefonopro.Size = New Size(207, 23)
-        txttelefonopro.TabIndex = 18
+        txtdnicliente.Location = New Point(312, 36)
+        txtdnicliente.Name = "txtdnicliente"
+        txtdnicliente.Size = New Size(207, 23)
+        txtdnicliente.TabIndex = 18
         ' 
         ' Label4
         ' 
@@ -282,12 +313,12 @@ Partial Class registrarventa
         Label4.TabIndex = 17
         Label4.Text = "DNI:"
         ' 
-        ' txtnombrepro
+        ' txtnombrecliente
         ' 
-        txtnombrepro.Location = New Point(6, 36)
-        txtnombrepro.Name = "txtnombrepro"
-        txtnombrepro.Size = New Size(207, 23)
-        txtnombrepro.TabIndex = 16
+        txtnombrecliente.Location = New Point(6, 36)
+        txtnombrecliente.Name = "txtnombrecliente"
+        txtnombrecliente.Size = New Size(207, 23)
+        txtnombrecliente.TabIndex = 16
         ' 
         ' Label3
         ' 
@@ -337,53 +368,97 @@ Partial Class registrarventa
         Label2.TabIndex = 30
         Label2.Text = "REGISTROS DE VENTAS TURBORESPUESTOS"
         ' 
-        ' TextBox1
+        ' txtpagacon
         ' 
-        TextBox1.Location = New Point(906, 490)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(97, 23)
-        TextBox1.TabIndex = 41
+        txtpagacon.Location = New Point(909, 521)
+        txtpagacon.Name = "txtpagacon"
+        txtpagacon.Size = New Size(97, 23)
+        txtpagacon.TabIndex = 41
         ' 
         ' Label11
         ' 
         Label11.AutoSize = True
         Label11.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label11.Location = New Point(906, 473)
+        Label11.Location = New Point(912, 521)
         Label11.Name = "Label11"
         Label11.Size = New Size(67, 14)
         Label11.TabIndex = 40
         Label11.Text = "paga con:"
         ' 
-        ' Column1
+        ' txtimpuesto
         ' 
-        Column1.HeaderText = "Producto"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
+        txtimpuesto.Location = New Point(912, 389)
+        txtimpuesto.Name = "txtimpuesto"
+        txtimpuesto.Size = New Size(97, 23)
+        txtimpuesto.TabIndex = 43
         ' 
-        ' Column2
+        ' Label12
         ' 
-        Column2.HeaderText = "Precio venta"
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
+        Label12.AutoSize = True
+        Label12.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label12.Location = New Point(912, 372)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(70, 14)
+        Label12.TabIndex = 42
+        Label12.Text = "Impuesto:"
         ' 
-        ' Column3
+        ' txtcambio
         ' 
-        Column3.HeaderText = "Cantidad"
-        Column3.Name = "Column3"
-        Column3.ReadOnly = True
+        txtcambio.Location = New Point(909, 599)
+        txtcambio.Name = "txtcambio"
+        txtcambio.Size = New Size(97, 23)
+        txtcambio.TabIndex = 45
         ' 
-        ' Column4
+        ' Label13
         ' 
-        Column4.HeaderText = "Sub Total"
-        Column4.Name = "Column4"
-        Column4.ReadOnly = True
+        Label13.AutoSize = True
+        Label13.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label13.Location = New Point(909, 582)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(56, 14)
+        Label13.TabIndex = 44
+        Label13.Text = "Cambio:"
+        ' 
+        ' txtdescuento
+        ' 
+        txtdescuento.Location = New Point(906, 469)
+        txtdescuento.Name = "txtdescuento"
+        txtdescuento.Size = New Size(97, 23)
+        txtdescuento.TabIndex = 47
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label14.Location = New Point(917, 452)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(75, 14)
+        Label14.TabIndex = 46
+        Label14.Text = "descuento:"
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.Location = New Point(912, 504)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(68, 14)
+        Label15.TabIndex = 48
+        Label15.Text = "Pago con:"
         ' 
         ' registrarventa
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1015, 710)
-        Controls.Add(TextBox1)
+        Controls.Add(Label15)
+        Controls.Add(txtdescuento)
+        Controls.Add(Label14)
+        Controls.Add(txtcambio)
+        Controls.Add(Label13)
+        Controls.Add(txtimpuesto)
+        Controls.Add(Label12)
+        Controls.Add(txtpagacon)
         Controls.Add(Label11)
         Controls.Add(btnverdetalle)
         Controls.Add(btnregistrar)
@@ -418,7 +493,7 @@ Partial Class registrarventa
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents NumericUpDowncantiddad As NumericUpDown
     Friend WithEvents Label9 As Label
-    Friend WithEvents txtprecioven As TextBox
+    Friend WithEvents txtstock As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents txtpreciocom As TextBox
     Friend WithEvents Label7 As Label
@@ -428,10 +503,10 @@ Partial Class registrarventa
     Friend WithEvents txtcodigoproducto As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents btnbuscarpro As Button
-    Friend WithEvents txttelefonopro As TextBox
+    Friend WithEvents btnbuscarcliente As Button
+    Friend WithEvents txtdnicliente As TextBox
     Friend WithEvents Label4 As Label
-    Friend WithEvents txtnombrepro As TextBox
+    Friend WithEvents txtnombrecliente As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents txtFECHA As TextBox
@@ -441,6 +516,13 @@ Partial Class registrarventa
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtpagacon As TextBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents txtimpuesto As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents txtcambio As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents txtdescuento As TextBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label15 As Label
 End Class

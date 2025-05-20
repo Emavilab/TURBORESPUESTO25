@@ -35,11 +35,11 @@ Public Class buscarproductocompra
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
-                Dim query As String = "SELECT p.id_producto, p.codigo, p.nombre, c.nombre_categoria AS categoria
-                       FROM productos p
-                       INNER JOIN categoria c ON p.id_categoria = c.id_categoria
-                       WHERE 1=1"
-
+                Dim query As String = "SELECT p.id_producto, p.codigo, p.nombre, c.nombre_categoria AS categoria, " &
+                                  "p.precio_compra, p.precio_venta, p.stock " &
+                                  "FROM productos p " &
+                                  "INNER JOIN categoria c ON p.id_categoria = c.id_categoria " &
+                                  "WHERE 1=1"
 
                 If idCategoria > 0 Then
                     query &= " AND p.id_categoria = @id_categoria"
@@ -89,21 +89,24 @@ Public Class buscarproductocompra
         End If
         CargarProductosFiltrados(idCategoria, txtbuscar.Text.Trim())
     End Sub
+    Public Event ProductoSeleccionado(idProducto As Integer, codigo As String, nombre As String, precioCompra As Decimal, precioVenta As Decimal, stock As Integer)
 
-    Public Event ProductoSeleccionado(idProducto As Integer, codigo As String, nombre As String)
-
-    Private Sub tabladeproductos_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles tabladeproveedores.CellDoubleClick
-
+    ' Ejemplo de cómo lanzar el evento al seleccionar un producto (por doble clic en la tabla)
+    Private Sub tablaproductos_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles tabladeproveedores.CellDoubleClick
         If e.RowIndex >= 0 Then
             Dim row = tabladeproveedores.Rows(e.RowIndex)
             RaiseEvent ProductoSeleccionado(
             Convert.ToInt32(row.Cells("id_producto").Value),
             row.Cells("codigo").Value.ToString(),
-            row.Cells("nombre").Value.ToString()
+            row.Cells("nombre").Value.ToString(),
+            Convert.ToDecimal(row.Cells("precio_compra").Value),
+            Convert.ToDecimal(row.Cells("precio_venta").Value),
+            Convert.ToInt32(row.Cells("stock").Value)
         )
             Me.Close()
         End If
     End Sub
+
 
 
 

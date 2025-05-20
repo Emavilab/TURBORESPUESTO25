@@ -27,21 +27,16 @@ Partial Class buscarclienteventas
         btnbuscardetallecompra = New Button()
         txtbuscarpro = New TextBox()
         Label2 = New Label()
-        Column1 = New DataGridViewTextBoxColumn()
-        Column2 = New DataGridViewTextBoxColumn()
         CType(tabladeproveedores, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' tabladeproveedores
         ' 
-        tabladeproveedores.AllowUserToAddRows = False
         tabladeproveedores.BackgroundColor = Color.White
         tabladeproveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        tabladeproveedores.Columns.AddRange(New DataGridViewColumn() {Column1, Column2})
         tabladeproveedores.Location = New Point(12, 132)
         tabladeproveedores.Name = "tabladeproveedores"
-        tabladeproveedores.ReadOnly = True
         tabladeproveedores.Size = New Size(473, 178)
         tabladeproveedores.TabIndex = 25
         ' 
@@ -81,18 +76,6 @@ Partial Class buscarclienteventas
         Label2.TabIndex = 23
         Label2.Text = "LISTA DE CLIENTES"
         ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "Nombre cliente"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = "DNI"
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
-        ' 
         ' buscarclienteventas
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -111,8 +94,6 @@ Partial Class buscarclienteventas
     End Sub
 
     Friend WithEvents tabladeproveedores As DataGridView
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Panel1 As Panel
     Friend WithEvents btnbuscardetallecompra As Button
     Friend WithEvents txtbuscarpro As TextBox

@@ -34,6 +34,12 @@
         frmBuscarProveedor.ShowDialog()
     End Sub
 
+    Private Sub ProveedorSeleccionadoHandler(idProveedor As Integer, nombre As String, telefono As String)
+        idProveedorSeleccionado = idProveedor
+        txtnombrepro.Text = nombre
+        txttelefonopro.Text = telefono
+    End Sub
+
 
     Private Sub txtnombreproducto_TextChanged(sender As Object, e As EventArgs) Handles txtnombreproducto.TextChanged
 
@@ -49,11 +55,15 @@
         frmBuscarProducto.ShowDialog()
     End Sub
 
-    Private Sub ProveedorSeleccionadoHandler(idProveedor As Integer, nombre As String, telefono As String)
-        idProveedorSeleccionado = idProveedor
-        txtnombrepro.Text = nombre
-        txttelefonopro.Text = telefono
+    Private Sub ProductoSeleccionadoHandler(idProducto As Integer, codigo As String, nombre As String, precioCompra As Decimal, precioVenta As Decimal, stock As Integer)
+        idProductoSeleccionado = idProducto
+        txtcodigoproducto.Text = codigo
+        txtnombreproducto.Text = nombre
+        txtpreciocom.Text = precioCompra.ToString("0.00")
+        txtprecioven.Text = precioVenta.ToString("0.00")
+
     End Sub
+
 
     Private Sub ProductoSeleccionadoHandler(idProducto As Integer, codigo As String, nombre As String)
         idProductoSeleccionado = idProducto
@@ -206,6 +216,7 @@
 
 
     Private Sub btnverdetalle_Click(sender As Object, e As EventArgs) Handles btnverdetalle.Click
-
+        Dim frm As New detallecompra()
+        frm.ShowDialog()
     End Sub
 End Class

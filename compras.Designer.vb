@@ -46,16 +46,16 @@ Partial Class compras
         Label6 = New Label()
         btnagergartabla = New Button()
         tabladecompras = New DataGridView()
-        txttotal = New TextBox()
-        Label10 = New Label()
-        btnregistrar = New Button()
-        btnverdetalle = New Button()
         id_producto = New DataGridViewTextBoxColumn()
         Column1 = New DataGridViewTextBoxColumn()
         Column2 = New DataGridViewTextBoxColumn()
         Column3 = New DataGridViewTextBoxColumn()
         Column4 = New DataGridViewTextBoxColumn()
         Eliminar = New DataGridViewTextBoxColumn()
+        txttotal = New TextBox()
+        Label10 = New Label()
+        btnregistrar = New Button()
+        btnverdetalle = New Button()
         GroupBox1.SuspendLayout()
         GroupBox2.SuspendLayout()
         GroupBox3.SuspendLayout()
@@ -208,9 +208,9 @@ Partial Class compras
         Label8.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label8.Location = New Point(657, 19)
         Label8.Name = "Label8"
-        Label8.Size = New Size(99, 14)
+        Label8.Size = New Size(88, 14)
         Label8.TabIndex = 22
-        Label8.Text = "Precio Compra:"
+        Label8.Text = "Precio Venta:"
         ' 
         ' txtpreciocom
         ' 
@@ -292,6 +292,37 @@ Partial Class compras
         tabladecompras.Size = New Size(887, 381)
         tabladecompras.TabIndex = 21
         ' 
+        ' id_producto
+        ' 
+        id_producto.HeaderText = "id_producto"
+        id_producto.Name = "id_producto"
+        id_producto.Visible = False
+        ' 
+        ' Column1
+        ' 
+        Column1.HeaderText = "Producto"
+        Column1.Name = "Column1"
+        ' 
+        ' Column2
+        ' 
+        Column2.HeaderText = "Precio compra"
+        Column2.Name = "Column2"
+        ' 
+        ' Column3
+        ' 
+        Column3.HeaderText = "Cantidad"
+        Column3.Name = "Column3"
+        ' 
+        ' Column4
+        ' 
+        Column4.HeaderText = "Sub Total"
+        Column4.Name = "Column4"
+        ' 
+        ' Eliminar
+        ' 
+        Eliminar.HeaderText = "Eliminar"
+        Eliminar.Name = "Eliminar"
+        ' 
         ' txttotal
         ' 
         txttotal.Location = New Point(906, 532)
@@ -334,37 +365,6 @@ Partial Class compras
         btnverdetalle.Text = "Ver detalles"
         btnverdetalle.TextAlign = ContentAlignment.BottomCenter
         btnverdetalle.UseVisualStyleBackColor = True
-        ' 
-        ' id_producto
-        ' 
-        id_producto.HeaderText = "id_producto"
-        id_producto.Name = "id_producto"
-        id_producto.Visible = False
-        ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "Producto"
-        Column1.Name = "Column1"
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = "Precio compra"
-        Column2.Name = "Column2"
-        ' 
-        ' Column3
-        ' 
-        Column3.HeaderText = "Cantidad"
-        Column3.Name = "Column3"
-        ' 
-        ' Column4
-        ' 
-        Column4.HeaderText = "Sub Total"
-        Column4.Name = "Column4"
-        ' 
-        ' Eliminar
-        ' 
-        Eliminar.HeaderText = "Eliminar"
-        Eliminar.Name = "Eliminar"
         ' 
         ' compras
         ' 
