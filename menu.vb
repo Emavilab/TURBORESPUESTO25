@@ -2,6 +2,8 @@
 
     Public Property RolUsuario As String
     Public Property IdUsuario As Integer
+    Public Property IdRolUsuario As Integer
+
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)
         ' Crear una nueva instancia del formulario registraproducto
@@ -45,6 +47,16 @@
 
     Private Sub menu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         USUARIOLOG.Text = RolUsuario
+
+
+        ' Ocultar controles según el rol
+        If IdRolUsuario = 2 Then ' 2 = empleado
+            labelusuario.Visible = False
+            Labelreportes.Visible = False
+        ElseIf IdRolUsuario = 1 Then ' 1 = administrador
+            labelusuario.Visible = True
+            Labelreportes.Visible = True
+        End If
     End Sub
 
     Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
@@ -125,5 +137,30 @@
         ' Agregar el formulario al panel y mostrarlo
         contenedor.Controls.Add(frm)
         frm.Show()
+    End Sub
+
+    Private Sub labelusuario_Click(sender As Object, e As EventArgs) Handles labelusuario.Click
+        ' Limpiar el panel contenedor
+        contenedor.Controls.Clear()
+
+        ' Crear una instancia del formulario
+        Dim frm As New REGISTRARUSUARIOS()
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Agregar el formulario al panel y mostrarlo
+        contenedor.Controls.Add(frm)
+        frm.Show()
+    End Sub
+
+    Private Sub PictureBoxcerrarsesion_Click(sender As Object, e As EventArgs) Handles PictureBoxcerrarsesion.Click
+        Dim frmLogin As New login()
+        frmLogin.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
+
     End Sub
 End Class

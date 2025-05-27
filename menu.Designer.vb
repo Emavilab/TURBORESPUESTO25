@@ -24,6 +24,7 @@ Partial Class menu
     Private Sub InitializeComponent()
         MySqlCommand1 = New MySql.Data.MySqlClient.MySqlCommand()
         Panel1 = New Panel()
+        PictureBoxcerrarsesion = New PictureBox()
         USUARIOLOG = New Label()
         Label2 = New Label()
         Label1 = New Label()
@@ -38,6 +39,7 @@ Partial Class menu
         labelusuario = New Label()
         contenedor = New Panel()
         Panel1.SuspendLayout()
+        CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -52,6 +54,7 @@ Partial Class menu
         ' Panel1
         ' 
         Panel1.BackColor = SystemColors.MenuHighlight
+        Panel1.Controls.Add(PictureBoxcerrarsesion)
         Panel1.Controls.Add(USUARIOLOG)
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(Label1)
@@ -60,12 +63,22 @@ Partial Class menu
         Panel1.Size = New Size(1240, 50)
         Panel1.TabIndex = 0
         ' 
+        ' PictureBoxcerrarsesion
+        ' 
+        PictureBoxcerrarsesion.Image = My.Resources.Resources.cerrar_sesion_de_usuario
+        PictureBoxcerrarsesion.Location = New Point(1111, 0)
+        PictureBoxcerrarsesion.Name = "PictureBoxcerrarsesion"
+        PictureBoxcerrarsesion.Size = New Size(100, 50)
+        PictureBoxcerrarsesion.SizeMode = PictureBoxSizeMode.StretchImage
+        PictureBoxcerrarsesion.TabIndex = 3
+        PictureBoxcerrarsesion.TabStop = False
+        ' 
         ' USUARIOLOG
         ' 
         USUARIOLOG.AutoSize = True
         USUARIOLOG.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         USUARIOLOG.ForeColor = SystemColors.ButtonFace
-        USUARIOLOG.Location = New Point(1061, 9)
+        USUARIOLOG.Location = New Point(920, 9)
         USUARIOLOG.Name = "USUARIOLOG"
         USUARIOLOG.Size = New Size(148, 30)
         USUARIOLOG.TabIndex = 2
@@ -76,7 +89,7 @@ Partial Class menu
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.ForeColor = SystemColors.ButtonHighlight
-        Label2.Location = New Point(951, 9)
+        Label2.Location = New Point(810, 9)
         Label2.Name = "Label2"
         Label2.Size = New Size(113, 30)
         Label2.TabIndex = 1
@@ -229,6 +242,7 @@ Partial Class menu
         Text = "MENU"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -254,4 +268,5 @@ Partial Class menu
     Friend WithEvents Labelproducto As Label
     Friend WithEvents labelusuario As Label
     Friend WithEvents contenedor As Panel
+    Friend WithEvents PictureBoxcerrarsesion As PictureBox
 End Class

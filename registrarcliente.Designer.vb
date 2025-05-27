@@ -232,6 +232,7 @@ Partial Class registrarcliente
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.White
         ClientSize = New Size(1015, 710)
         Controls.Add(Label7)
         Controls.Add(ComboBoxTIPOCLIENTE)

@@ -3,7 +3,7 @@ Imports MySql.Data.MySqlClient
 Public Class login
     Private Sub accederbtn_Click(sender As Object, e As EventArgs) Handles accederbtn.Click
         Dim connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
-        Dim query As String = "SELECT u.id_usuario, r.nombre_rol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id_rol WHERE u.nombre_usuario = @usuario AND u.contraseña = @contraseña"
+        Dim query As String = "SELECT u.id_usuario, u.id_rol, r.nombre_rol FROM usuarios u INNER JOIN rol r ON u.id_rol = r.id_rol WHERE u.nombre_usuario = @usuario AND u.contraseña = @contraseña"
 
         Dim usuario As String = txtusuario.Text.Trim()
         Dim contraseña As String = txtcontraseña.Text.Trim()
@@ -22,13 +22,14 @@ Public Class login
 
                     Using reader As MySqlDataReader = command.ExecuteReader()
                         If reader.Read() Then
-                            Dim idUsuario As Integer = Convert.ToInt32(reader("id_usuario"))
+                            Dim idRol As Integer = Convert.ToInt32(reader("id_rol"))
                             Dim rol As String = reader("nombre_rol").ToString()
+                            Dim idUsuario As Integer = Convert.ToInt32(reader("id_usuario"))
 
-                            MessageBox.Show("Inicio de sesión exitoso.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Dim siguienteFormulario As New menu()
                             siguienteFormulario.RolUsuario = rol
-                            siguienteFormulario.IdUsuarioLogueado = idUsuario ' <-- AQUÍ SE ASIGNA
+                            siguienteFormulario.IdUsuarioLogueado = idUsuario
+                            siguienteFormulario.IdRolUsuario = idRol
                             siguienteFormulario.Show()
                             Me.Hide()
                         Else

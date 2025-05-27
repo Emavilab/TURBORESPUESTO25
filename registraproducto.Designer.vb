@@ -51,6 +51,13 @@ Partial Class registraproducto
         Label11 = New Label()
         Label12 = New Label()
         ComboBoxbuscar = New ComboBox()
+        Label13 = New Label()
+        TextBox1 = New TextBox()
+        Label14 = New Label()
+        TextBox2 = New TextBox()
+        Label15 = New Label()
+        TextBox3 = New TextBox()
+        Label16 = New Label()
         CType(tabladeproductos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -222,7 +229,9 @@ Partial Class registraproducto
         ' 
         tabladeproductos.AllowUserToAddRows = False
         tabladeproductos.AllowUserToDeleteRows = False
+        tabladeproductos.BackgroundColor = Color.White
         tabladeproductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        tabladeproductos.GridColor = Color.White
         tabladeproductos.Location = New Point(12, 275)
         tabladeproductos.Name = "tabladeproductos"
         tabladeproductos.ReadOnly = True
@@ -329,6 +338,67 @@ Partial Class registraproducto
         ComboBoxbuscar.TabIndex = 35
         ComboBoxbuscar.Text = "Categoria"
         ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label13.Location = New Point(12, 67)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(55, 14)
+        Label13.TabIndex = 3
+        Label13.Text = "CODIGO"
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.Location = New Point(12, 84)
+        TextBox1.Name = "TextBox1"
+        TextBox1.Size = New Size(75, 23)
+        TextBox1.TabIndex = 4
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label14.Location = New Point(104, 67)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(157, 14)
+        Label14.TabIndex = 5
+        Label14.Text = "NOMBRE DEL PRODUCTO"
+        ' 
+        ' TextBox2
+        ' 
+        TextBox2.Location = New Point(104, 84)
+        TextBox2.Name = "TextBox2"
+        TextBox2.Size = New Size(228, 23)
+        TextBox2.TabIndex = 6
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label15.Location = New Point(366, 67)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(53, 14)
+        Label15.TabIndex = 9
+        Label15.Text = "MARCA"
+        ' 
+        ' TextBox3
+        ' 
+        TextBox3.Location = New Point(366, 84)
+        TextBox3.Name = "TextBox3"
+        TextBox3.Size = New Size(158, 23)
+        TextBox3.TabIndex = 10
+        ' 
+        ' Label16
+        ' 
+        Label16.AutoSize = True
+        Label16.Font = New Font("Tahoma", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label16.Location = New Point(213, 140)
+        Label16.Name = "Label16"
+        Label16.Size = New Size(82, 14)
+        Label16.TabIndex = 19
+        Label16.Text = "PROVEEDOR"
+        ' 
         ' registraproducto
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -346,6 +416,7 @@ Partial Class registraproducto
         Controls.Add(agregarbtn)
         Controls.Add(tabladeproductos)
         Controls.Add(ComboBoxproveedores)
+        Controls.Add(Label16)
         Controls.Add(Label10)
         Controls.Add(txtstock)
         Controls.Add(Label9)
@@ -355,13 +426,19 @@ Partial Class registraproducto
         Controls.Add(Label7)
         Controls.Add(txtmodelo)
         Controls.Add(Label6)
+        Controls.Add(TextBox3)
         Controls.Add(txtmarca)
+        Controls.Add(Label15)
         Controls.Add(Label5)
         Controls.Add(txtdescripcion)
         Controls.Add(Label4)
+        Controls.Add(TextBox2)
         Controls.Add(txtproducto)
+        Controls.Add(Label14)
         Controls.Add(Label3)
+        Controls.Add(TextBox1)
         Controls.Add(txtcodigo)
+        Controls.Add(Label13)
         Controls.Add(Label1)
         Controls.Add(Label2)
         Name = "registraproducto"
@@ -401,4 +478,11 @@ Partial Class registraproducto
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents ComboBoxbuscar As ComboBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents Label16 As Label
 End Class

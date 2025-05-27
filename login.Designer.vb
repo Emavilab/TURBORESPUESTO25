@@ -160,7 +160,7 @@ Partial Class login
         Controls.Add(PictureBox1)
         Name = "login"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Form1"
+        Text = "login"
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
