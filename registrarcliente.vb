@@ -41,9 +41,10 @@ Public Class registrarcliente
         Using connection As New MySqlConnection(connectionString)
             Try
                 connection.Open()
-                Dim query As String = "SELECT c.nombre, c.telefono, c.direccion, c.email, c.dni, t.descripcion AS tipo_cliente " &
-                                  "FROM clientes c " &
-                                  "INNER JOIN tipo_cliente t ON c.id_tipo_cliente = t.id_tipo_cliente"
+                Dim query As String = "SELECT c.id_cliente, c.nombre, c.telefono, c.direccion, c.email, c.dni, t.descripcion AS tipo_cliente " &
+                      "FROM clientes c " &
+                      "INNER JOIN tipo_cliente t ON c.id_tipo_cliente = t.id_tipo_cliente"
+
                 If Not String.IsNullOrEmpty(terminoBusqueda) Then
                     query &= " WHERE c.nombre LIKE @termino OR c.telefono LIKE @termino OR c.direccion LIKE @termino OR c.email LIKE @termino OR c.dni LIKE @termino OR t.descripcion LIKE @termino"
                 End If
@@ -55,6 +56,11 @@ Public Class registrarcliente
                 Dim table As New DataTable()
                 adapter.Fill(table)
                 tabladeclientes.DataSource = table
+
+                If tabladeclientes.Columns.Contains("id_cliente") Then
+                    tabladeclientes.Columns("id_cliente").Visible = False
+
+                End If
             Catch ex As Exception
                 MessageBox.Show("Error al cargar clientes: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try

@@ -22,6 +22,7 @@ Partial Class menu
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         MySqlCommand1 = New MySql.Data.MySqlClient.MySqlCommand()
         Panel1 = New Panel()
         PictureBoxcerrarsesion = New PictureBox()
@@ -38,10 +39,14 @@ Partial Class menu
         Labelproducto = New Label()
         labelusuario = New Label()
         contenedor = New Panel()
+        ContextMenuReportes = New ContextMenuStrip(components)
+        REPORTEVENTASToolStripMenuItem = New ToolStripMenuItem()
+        REPORTECOMPRAToolStripMenuItem = New ToolStripMenuItem()
         Panel1.SuspendLayout()
         CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        ContextMenuReportes.SuspendLayout()
         SuspendLayout()
         ' 
         ' MySqlCommand1
@@ -230,6 +235,24 @@ Partial Class menu
         contenedor.Size = New Size(1048, 684)
         contenedor.TabIndex = 2
         ' 
+        ' ContextMenuReportes
+        ' 
+        ContextMenuReportes.Items.AddRange(New ToolStripItem() {REPORTEVENTASToolStripMenuItem, REPORTECOMPRAToolStripMenuItem})
+        ContextMenuReportes.Name = "ContextMenuReportes"
+        ContextMenuReportes.Size = New Size(176, 48)
+        ' 
+        ' REPORTEVENTASToolStripMenuItem
+        ' 
+        REPORTEVENTASToolStripMenuItem.Name = "REPORTEVENTASToolStripMenuItem"
+        REPORTEVENTASToolStripMenuItem.Size = New Size(175, 22)
+        REPORTEVENTASToolStripMenuItem.Text = "REPORTE VENTAS"
+        ' 
+        ' REPORTECOMPRAToolStripMenuItem
+        ' 
+        REPORTECOMPRAToolStripMenuItem.Name = "REPORTECOMPRAToolStripMenuItem"
+        REPORTECOMPRAToolStripMenuItem.Size = New Size(175, 22)
+        REPORTECOMPRAToolStripMenuItem.Text = "REPORTE COMPRA"
+        ' 
         ' menu
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -245,6 +268,7 @@ Partial Class menu
         CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        ContextMenuReportes.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
     Friend WithEvents MySqlCommand1 As MySql.Data.MySqlClient.MySqlCommand
@@ -269,4 +293,7 @@ Partial Class menu
     Friend WithEvents labelusuario As Label
     Friend WithEvents contenedor As Panel
     Friend WithEvents PictureBoxcerrarsesion As PictureBox
+    Friend WithEvents ContextMenuReportes As ContextMenuStrip
+    Friend WithEvents REPORTEVENTASToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents REPORTECOMPRAToolStripMenuItem As ToolStripMenuItem
 End Class

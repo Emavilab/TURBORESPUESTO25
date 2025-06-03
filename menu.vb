@@ -163,4 +163,38 @@
     Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
 
     End Sub
+
+    Private Sub Labelreportes_Click(sender As Object, e As EventArgs) Handles Labelreportes.Click
+        ContextMenuReportes.Show(Labelreportes, New Point(0, Labelreportes.Height))
+    End Sub
+
+    Private Sub REPORTEVENTASToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles REPORTEVENTASToolStripMenuItem.Click
+        ' Limpiar el panel contenedor
+        contenedor.Controls.Clear()
+
+        ' Crear una instancia del formulario
+        Dim frm As New REPORTESVENTAS()
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Agregar el formulario al panel y mostrarlo
+        contenedor.Controls.Add(frm)
+        frm.Show()
+    End Sub
+
+    Private Sub REPORTECOMPRAToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles REPORTECOMPRAToolStripMenuItem.Click
+        ' Limpiar el panel contenedor
+        contenedor.Controls.Clear()
+
+        ' Crear una instancia del formulario
+        Dim frm As New REPORTECOMPRAS()
+        frm.TopLevel = False
+        frm.FormBorderStyle = FormBorderStyle.None
+        frm.Dock = DockStyle.Fill
+
+        ' Agregar el formulario al panel y mostrarlo
+        contenedor.Controls.Add(frm)
+        frm.Show()
+    End Sub
 End Class
