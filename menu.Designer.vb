@@ -39,13 +39,16 @@ Partial Class menu
         Labelproducto = New Label()
         labelusuario = New Label()
         contenedor = New Panel()
+        labelventasdeldia = New Label()
         ContextMenuReportes = New ContextMenuStrip(components)
         REPORTEVENTASToolStripMenuItem = New ToolStripMenuItem()
         REPORTECOMPRAToolStripMenuItem = New ToolStripMenuItem()
+        labeltotal = New Label()
         Panel1.SuspendLayout()
         CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        contenedor.SuspendLayout()
         ContextMenuReportes.SuspendLayout()
         SuspendLayout()
         ' 
@@ -230,10 +233,23 @@ Partial Class menu
         ' 
         ' contenedor
         ' 
+        contenedor.Controls.Add(labeltotal)
+        contenedor.Controls.Add(labelventasdeldia)
         contenedor.Location = New Point(193, 45)
         contenedor.Name = "contenedor"
         contenedor.Size = New Size(1048, 684)
         contenedor.TabIndex = 2
+        ' 
+        ' labelventasdeldia
+        ' 
+        labelventasdeldia.BackColor = SystemColors.AppWorkspace
+        labelventasdeldia.Font = New Font("Showcard Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        labelventasdeldia.Location = New Point(378, 216)
+        labelventasdeldia.Name = "labelventasdeldia"
+        labelventasdeldia.Size = New Size(310, 241)
+        labelventasdeldia.TabIndex = 0
+        labelventasdeldia.Text = "VENTAS DEL DIA TURBORESPUESTOS"
+        labelventasdeldia.TextAlign = ContentAlignment.TopCenter
         ' 
         ' ContextMenuReportes
         ' 
@@ -253,6 +269,14 @@ Partial Class menu
         REPORTECOMPRAToolStripMenuItem.Size = New Size(175, 22)
         REPORTECOMPRAToolStripMenuItem.Text = "REPORTE COMPRA"
         ' 
+        ' labeltotal
+        ' 
+        labeltotal.Font = New Font("Segoe UI Symbol", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        labeltotal.Location = New Point(435, 303)
+        labeltotal.Name = "labeltotal"
+        labeltotal.Size = New Size(201, 90)
+        labeltotal.TabIndex = 1
+        ' 
         ' menu
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -268,6 +292,7 @@ Partial Class menu
         CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        contenedor.ResumeLayout(False)
         ContextMenuReportes.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
@@ -296,4 +321,6 @@ Partial Class menu
     Friend WithEvents ContextMenuReportes As ContextMenuStrip
     Friend WithEvents REPORTEVENTASToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents REPORTECOMPRAToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents labelventasdeldia As Label
+    Friend WithEvents labeltotal As Label
 End Class

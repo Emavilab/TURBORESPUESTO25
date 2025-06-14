@@ -196,29 +196,7 @@ Public Class registrarcliente
         End If
     End Sub
 
-    Private Sub btnbuscarpro_Click(sender As Object, e As EventArgs) Handles btnbuscarpro.Click
 
-    End Sub
-
-    Private Sub txtUBICACION_TextChanged(sender As Object, e As EventArgs) Handles txtUBICACION.TextChanged
-
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles txtdni.TextChanged
-
-    End Sub
-
-    Private Sub txtTELEFONOPRO_TextChanged(sender As Object, e As EventArgs) Handles txtTELEFONOPRO.TextChanged
-
-    End Sub
-
-    Private Sub txtEMAILPRO_TextChanged(sender As Object, e As EventArgs) Handles txtEMAILPRO.TextChanged
-
-    End Sub
-
-    Private Sub txtNOMBREPRO_TextChanged(sender As Object, e As EventArgs) Handles txtNOMBREPRO.TextChanged
-
-    End Sub
 
     Private Sub registrarcliente_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CargarTiposCliente()

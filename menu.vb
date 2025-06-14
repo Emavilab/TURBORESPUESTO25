@@ -1,8 +1,12 @@
-﻿Public Class menu
+﻿Imports MySql.Data.MySqlClient
+
+Public Class menu
 
     Public Property RolUsuario As String
     Public Property IdUsuario As Integer
     Public Property IdRolUsuario As Integer
+    Public Property NombreUsuario As String
+
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs)
@@ -27,27 +31,9 @@
         Close()
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Menutitulo_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs)
-
-    End Sub
-
-    Private Sub Label1_Click_1(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label1_Click_2(sender As Object, e As EventArgs)
-
-    End Sub
-
-
 
     Private Sub menu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        USUARIOLOG.Text = RolUsuario
-
+        USUARIOLOG.Text = NombreUsuario
 
         ' Ocultar controles según el rol
         If IdRolUsuario = 2 Then ' 2 = empleado
@@ -57,18 +43,26 @@
             labelusuario.Visible = True
             Labelreportes.Visible = True
         End If
+
+        ActualizarTotalVentasDelDia()
     End Sub
 
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+    Private Sub ActualizarTotalVentasDelDia()
+        Dim connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
+        Dim totalVentas As Decimal = 0
 
-    End Sub
+        Using conn As New MySqlConnection(connectionString)
+            conn.Open()
+            Dim query As String = "SELECT IFNULL(SUM(total),0) FROM ventas WHERE DATE(fecha) = CURDATE()"
+            Using cmd As New MySqlCommand(query, conn)
+                Dim result = cmd.ExecuteScalar()
+                If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                    totalVentas = Convert.ToDecimal(result)
+                End If
+            End Using
+        End Using
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
-
-    End Sub
-
-    Private Sub contenedor_Paint(sender As Object, e As PaintEventArgs) Handles contenedor.Paint
-
+        labeltotal.Text = "Total ventas del día: " & totalVentas.ToString("C2")
     End Sub
 
     Private Sub Labelproducto_Click(sender As Object, e As EventArgs) Handles Labelproducto.Click
@@ -196,5 +190,17 @@
         ' Agregar el formulario al panel y mostrarlo
         contenedor.Controls.Add(frm)
         frm.Show()
+    End Sub
+
+    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles labelventasdeldia.Click
+
+    End Sub
+
+    Private Sub contenedor_Paint(sender As Object, e As PaintEventArgs) Handles contenedor.Paint
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        ActualizarTotalVentasDelDia()
     End Sub
 End Class

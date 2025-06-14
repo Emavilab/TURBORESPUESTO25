@@ -131,7 +131,7 @@ Partial Class REPORTESVENTAS
         Controls.Add(txtbuscar)
         Controls.Add(Label2)
         Name = "REPORTESVENTAS"
-        Text = "REPORTES"
+        Text = "REPORTESDEVENTAS"
         CType(tabladeventas, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()

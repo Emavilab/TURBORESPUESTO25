@@ -122,33 +122,6 @@ Public Class detallecompra
         End Try
     End Sub
 
-    Private Sub txtmontototal_TextChanged(sender As Object, e As EventArgs) Handles txtmontototal.TextChanged
-
-    End Sub
-
-    Private Sub tabladettalecompra_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles tabladettalecompra.CellContentClick
-
-    End Sub
-
-    Private Sub txttelefonopro_TextChanged(sender As Object, e As EventArgs) Handles txttelefonopro.TextChanged
-
-    End Sub
-
-    Private Sub txtnombrepro_TextChanged(sender As Object, e As EventArgs) Handles txtnombrepro.TextChanged
-
-    End Sub
-
-    Private Sub txtFECHA_TextChanged(sender As Object, e As EventArgs) Handles txtFECHA.TextChanged
-
-    End Sub
-
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles txtusuario.TextChanged
-
-    End Sub
-
-    Private Sub detallecompra_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 
     Private Sub btnbuscardetallecompra_Click(sender As Object, e As EventArgs) Handles btnbuscardetallecompra.Click
         If String.IsNullOrWhiteSpace(txtbuscaridcompra.Text) Then
