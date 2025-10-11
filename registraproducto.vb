@@ -140,10 +140,10 @@ Public Class registraproducto
 
     ' Método para limpiar los campos de texto y el ComboBox
     Private Sub LimpiarCampos()
-        txtcodigo.Clear()
-        txtproducto.Clear()
+        txtcodigo1.Clear()
+        txtproducto1.Clear()
         txtdescripcion.Clear()
-        txtmarca.Clear()
+        txtmarca1.Clear()
         txtmodelo.Clear()
         txtpreciocompra.Clear()
         txtprecioventa.Clear()
@@ -154,9 +154,9 @@ Public Class registraproducto
     ' Botón para agregar un nuevo producto
     Private Sub agregarbtn_Click(sender As Object, e As EventArgs) Handles agregarbtn.Click
         ' Validaciones
-        If String.IsNullOrEmpty(txtcodigo.Text.Trim()) OrElse
-       String.IsNullOrEmpty(txtproducto.Text.Trim()) OrElse
-       String.IsNullOrEmpty(txtmarca.Text.Trim()) OrElse
+        If String.IsNullOrEmpty(txtcodigo1.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtproducto1.Text.Trim()) OrElse
+       String.IsNullOrEmpty(txtmarca1.Text.Trim()) OrElse
        String.IsNullOrEmpty(txtmodelo.Text.Trim()) OrElse
        String.IsNullOrEmpty(txtstock.Text.Trim()) OrElse
        String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
@@ -184,10 +184,10 @@ Public Class registraproducto
                 Dim query As String = "INSERT INTO productos (codigo, nombre, descripcion, marca, modelo, precio_compra, precio_venta, stock, id_proveedor, id_categoria) 
                                    VALUES (@codigo, @nombre, @descripcion, @marca, @modelo, @precio_compra, @precio_venta, @stock, @id_proveedor, @id_categoria)"
                 Dim command As New MySqlCommand(query, connection)
-                command.Parameters.AddWithValue("@codigo", txtcodigo.Text.Trim())
-                command.Parameters.AddWithValue("@nombre", txtproducto.Text.Trim())
+                command.Parameters.AddWithValue("@codigo", txtcodigo1.Text.Trim())
+                command.Parameters.AddWithValue("@nombre", txtproducto1.Text.Trim())
                 command.Parameters.AddWithValue("@descripcion", txtdescripcion.Text.Trim())
-                command.Parameters.AddWithValue("@marca", txtmarca.Text.Trim())
+                command.Parameters.AddWithValue("@marca", txtmarca1.Text.Trim())
                 command.Parameters.AddWithValue("@modelo", txtmodelo.Text.Trim())
                 command.Parameters.AddWithValue("@precio_compra", Convert.ToDecimal(txtpreciocompra.Text.Trim()))
                 command.Parameters.AddWithValue("@precio_venta", Convert.ToDecimal(txtprecioventa.Text.Trim()))
@@ -213,9 +213,9 @@ Public Class registraproducto
             Dim codigoProducto As String = tabladeproductos.SelectedRows(0).Cells("codigo").Value.ToString()
 
             ' Validaciones
-            If String.IsNullOrEmpty(txtproducto.Text.Trim()) OrElse
+            If String.IsNullOrEmpty(txtproducto1.Text.Trim()) OrElse
            String.IsNullOrEmpty(txtdescripcion.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtmarca.Text.Trim()) OrElse
+           String.IsNullOrEmpty(txtmarca1.Text.Trim()) OrElse
            String.IsNullOrEmpty(txtmodelo.Text.Trim()) OrElse
            String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
            String.IsNullOrEmpty(txtprecioventa.Text.Trim()) OrElse
@@ -257,9 +257,9 @@ Public Class registraproducto
                                        WHERE codigo = @codigo"
                     Dim command As New MySqlCommand(query, connection)
                     command.Parameters.AddWithValue("@codigo", codigoProducto)
-                    command.Parameters.AddWithValue("@nombre", txtproducto.Text.Trim())
+                    command.Parameters.AddWithValue("@nombre", txtproducto1.Text.Trim())
                     command.Parameters.AddWithValue("@descripcion", txtdescripcion.Text.Trim())
-                    command.Parameters.AddWithValue("@marca", txtmarca.Text.Trim())
+                    command.Parameters.AddWithValue("@marca", txtmarca1.Text.Trim())
                     command.Parameters.AddWithValue("@modelo", txtmodelo.Text.Trim())
                     command.Parameters.AddWithValue("@precio_compra", precioCompra)
                     command.Parameters.AddWithValue("@precio_venta", precioVenta)
@@ -312,10 +312,10 @@ Public Class registraproducto
         If tabladeproductos.SelectedRows.Count > 0 Then
             Dim selectedRow = tabladeproductos.SelectedRows(0)
 
-            txtcodigo.Text = selectedRow.Cells("codigo").Value.ToString()
-            txtproducto.Text = selectedRow.Cells("nombre").Value.ToString()
+            txtcodigo1.Text = selectedRow.Cells("codigo").Value.ToString()
+            txtproducto1.Text = selectedRow.Cells("nombre").Value.ToString()
             txtdescripcion.Text = selectedRow.Cells("descripcion").Value.ToString()
-            txtmarca.Text = selectedRow.Cells("marca").Value.ToString()
+            txtmarca1.Text = selectedRow.Cells("marca").Value.ToString()
             txtmodelo.Text = selectedRow.Cells("modelo").Value.ToString()
             txtpreciocompra.Text = selectedRow.Cells("precio_compra").Value.ToString()
             txtprecioventa.Text = selectedRow.Cells("precio_venta").Value.ToString()

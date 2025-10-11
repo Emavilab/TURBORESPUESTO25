@@ -52,11 +52,11 @@ Partial Class registraproducto
         Label12 = New Label()
         ComboBoxbuscar = New ComboBox()
         Label13 = New Label()
-        TextBox1 = New TextBox()
+        txtcodigo1 = New TextBox()
         Label14 = New Label()
-        TextBox2 = New TextBox()
+        txtproducto1 = New TextBox()
         Label15 = New Label()
-        TextBox3 = New TextBox()
+        txtmarca1 = New TextBox()
         Label16 = New Label()
         CType(tabladeproductos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -348,12 +348,12 @@ Partial Class registraproducto
         Label13.TabIndex = 3
         Label13.Text = "CODIGO"
         ' 
-        ' TextBox1
+        ' txtcodigo1
         ' 
-        TextBox1.Location = New Point(12, 84)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(75, 23)
-        TextBox1.TabIndex = 4
+        txtcodigo1.Location = New Point(12, 84)
+        txtcodigo1.Name = "txtcodigo1"
+        txtcodigo1.Size = New Size(75, 23)
+        txtcodigo1.TabIndex = 4
         ' 
         ' Label14
         ' 
@@ -365,12 +365,12 @@ Partial Class registraproducto
         Label14.TabIndex = 5
         Label14.Text = "NOMBRE DEL PRODUCTO"
         ' 
-        ' TextBox2
+        ' txtproducto1
         ' 
-        TextBox2.Location = New Point(104, 84)
-        TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(228, 23)
-        TextBox2.TabIndex = 6
+        txtproducto1.Location = New Point(104, 84)
+        txtproducto1.Name = "txtproducto1"
+        txtproducto1.Size = New Size(228, 23)
+        txtproducto1.TabIndex = 6
         ' 
         ' Label15
         ' 
@@ -382,12 +382,12 @@ Partial Class registraproducto
         Label15.TabIndex = 9
         Label15.Text = "MARCA"
         ' 
-        ' TextBox3
+        ' txtmarca1
         ' 
-        TextBox3.Location = New Point(366, 84)
-        TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(158, 23)
-        TextBox3.TabIndex = 10
+        txtmarca1.Location = New Point(366, 84)
+        txtmarca1.Name = "txtmarca1"
+        txtmarca1.Size = New Size(158, 23)
+        txtmarca1.TabIndex = 10
         ' 
         ' Label16
         ' 
@@ -426,17 +426,17 @@ Partial Class registraproducto
         Controls.Add(Label7)
         Controls.Add(txtmodelo)
         Controls.Add(Label6)
-        Controls.Add(TextBox3)
+        Controls.Add(txtmarca1)
         Controls.Add(txtmarca)
         Controls.Add(Label15)
         Controls.Add(Label5)
         Controls.Add(txtdescripcion)
         Controls.Add(Label4)
-        Controls.Add(TextBox2)
+        Controls.Add(txtproducto1)
         Controls.Add(txtproducto)
         Controls.Add(Label14)
         Controls.Add(Label3)
-        Controls.Add(TextBox1)
+        Controls.Add(txtcodigo1)
         Controls.Add(txtcodigo)
         Controls.Add(Label13)
         Controls.Add(Label1)
@@ -479,10 +479,10 @@ Partial Class registraproducto
     Friend WithEvents Label12 As Label
     Friend WithEvents ComboBoxbuscar As ComboBox
     Friend WithEvents Label13 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtcodigo1 As TextBox
     Friend WithEvents Label14 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtproducto1 As TextBox
     Friend WithEvents Label15 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtmarca1 As TextBox
     Friend WithEvents Label16 As Label
 End Class
