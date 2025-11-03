@@ -51,38 +51,55 @@ Public Class REGISTRARUSUARIOS
             End If
         End Using
     End Sub
+
     Private Sub LimpiarCampos()
         txtnombrecompleto.Clear()
         txtusuario.Clear()
         txtcontraseña.Clear()
         ComboBoxroles.SelectedIndex = -1
     End Sub
+
+    ' Valida campos comunes para agregar/editar. Muestra mensaje y enfoca el primer control inválido.
+    Private Function ValidarCamposUsuario() As Boolean
+        If String.IsNullOrWhiteSpace(txtnombrecompleto.Text) Then
+            MessageBox.Show("Ingrese el nombre completo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtnombrecompleto.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtusuario.Text) Then
+            MessageBox.Show("Ingrese el nombre de usuario.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtusuario.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtcontraseña.Text) Then
+            MessageBox.Show("Ingrese la contraseña.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtcontraseña.Focus()
+            Return False
+        End If
+        If ComboBoxroles.SelectedIndex = -1 OrElse ComboBoxroles.SelectedItem Is Nothing Then
+            MessageBox.Show("Seleccione un rol.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ComboBoxroles.Focus()
+            Return False
+        End If
+
+        ' Asegurar que el rol seleccionado exista en el diccionario
+        Dim rolNombre As String = ComboBoxroles.SelectedItem.ToString()
+        If Not rolesDict.ContainsKey(rolNombre) Then
+            MessageBox.Show("Rol seleccionado inválido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ComboBoxroles.Focus()
+            Return False
+        End If
+
+        Return True
+    End Function
+
     Private Sub Label16_Click(sender As Object, e As EventArgs) Handles Label16.Click
 
     End Sub
 
     Private Sub agregarbtn_Click(sender As Object, e As EventArgs) Handles agregarbtn.Click
-        ' Validaciones de campos obligatorios
-        If String.IsNullOrWhiteSpace(txtnombrecompleto.Text) Then
-            MessageBox.Show("Ingrese el nombre completo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtnombrecompleto.Focus()
-            Return
-        End If
-        If String.IsNullOrWhiteSpace(txtusuario.Text) Then
-            MessageBox.Show("Ingrese el nombre de usuario.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtusuario.Focus()
-            Return
-        End If
-        If String.IsNullOrWhiteSpace(txtcontraseña.Text) Then
-            MessageBox.Show("Ingrese la contraseña.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtcontraseña.Focus()
-            Return
-        End If
-        If ComboBoxroles.SelectedIndex = -1 Then
-            MessageBox.Show("Seleccione un rol.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            ComboBoxroles.Focus()
-            Return
-        End If
+        ' Reutiliza la validación centralizada
+        If Not ValidarCamposUsuario() Then Return
 
         Using conn As New MySqlConnection(connectionString)
             conn.Open()
@@ -103,6 +120,12 @@ Public Class REGISTRARUSUARIOS
             MessageBox.Show("Seleccione un usuario para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+
+        ' Validación reforzada antes de editar
+        If Not ValidarCamposUsuario() Then
+            Return
+        End If
+
         Dim idUsuario = tabladeusuarios.SelectedRows(0).Cells("id_usuario").Value
         Using conn As New MySqlConnection(connectionString)
             conn.Open()
@@ -137,6 +160,7 @@ Public Class REGISTRARUSUARIOS
             End Using
         End If
     End Sub
+
     ' Cargar datos seleccionados en los campos
     Private Sub tabladeusuarios_SelectionChanged(sender As Object, e As EventArgs) Handles tabladeusuarios.SelectionChanged
         If tabladeusuarios.SelectedRows.Count > 0 Then

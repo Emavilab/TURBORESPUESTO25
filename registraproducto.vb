@@ -206,78 +206,132 @@ Public Class registraproducto
     End Sub
 
 
+    ' Validación reforzada para evitar editar con campos vacíos o inválidos
+    Private Function ValidarCamposParaEditar() As Boolean
+        Dim camposFaltantes As New List(Of String)()
+        Dim primerControlAEnfocar As Control = Nothing
+
+        If String.IsNullOrWhiteSpace(txtproducto1.Text) Then
+            camposFaltantes.Add("Nombre del producto")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtproducto1
+        End If
+        If String.IsNullOrWhiteSpace(txtdescripcion.Text) Then
+            camposFaltantes.Add("Descripción")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtdescripcion
+        End If
+        If String.IsNullOrWhiteSpace(txtmarca1.Text) Then
+            camposFaltantes.Add("Marca")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtmarca1
+        End If
+        If String.IsNullOrWhiteSpace(txtmodelo.Text) Then
+            camposFaltantes.Add("Modelo")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtmodelo
+        End If
+        If String.IsNullOrWhiteSpace(txtpreciocompra.Text) Then
+            camposFaltantes.Add("Precio de compra")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtpreciocompra
+        End If
+        If String.IsNullOrWhiteSpace(txtprecioventa.Text) Then
+            camposFaltantes.Add("Precio de venta")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtprecioventa
+        End If
+        If String.IsNullOrWhiteSpace(txtstock.Text) Then
+            camposFaltantes.Add("Stock")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = txtstock
+        End If
+
+        If ComboBoxproveedores.SelectedItem Is Nothing Then
+            camposFaltantes.Add("Proveedor")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = ComboBoxproveedores
+        End If
+        If ComboBoxcategorias.SelectedItem Is Nothing Then
+            camposFaltantes.Add("Categoría")
+            If primerControlAEnfocar Is Nothing Then primerControlAEnfocar = ComboBoxcategorias
+        End If
+
+        ' Mostrar mensaje si falta algo
+        If camposFaltantes.Count > 0 Then
+            Dim msg As String = "Complete los siguientes campos antes de editar:" & Environment.NewLine & String.Join(Environment.NewLine, camposFaltantes)
+            MessageBox.Show(msg, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            If primerControlAEnfocar IsNot Nothing Then primerControlAEnfocar.Focus()
+            Return False
+        End If
+
+        ' Validar formatos numéricos
+        Dim precioCompra As Decimal
+        Dim precioVenta As Decimal
+        Dim stock As Integer
+
+        If Not Decimal.TryParse(txtpreciocompra.Text.Trim(), precioCompra) Then
+            MessageBox.Show("El precio de compra debe ser un número válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtpreciocompra.Focus()
+            Return False
+        End If
+
+        If Not Decimal.TryParse(txtprecioventa.Text.Trim(), precioVenta) Then
+            MessageBox.Show("El precio de venta debe ser un número válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtprecioventa.Focus()
+            Return False
+        End If
+
+        If Not Integer.TryParse(txtstock.Text.Trim(), stock) Then
+            MessageBox.Show("El stock debe ser un número entero válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtstock.Focus()
+            Return False
+        End If
+
+        Return True
+    End Function
+
     ' Botón para editar un producto
     Private Sub editarbtn_Click(sender As Object, e As EventArgs) Handles editarbtn.Click
         ' Verificar si hay una fila seleccionada
-        If tabladeproductos.SelectedRows.Count > 0 Then
-            Dim codigoProducto As String = tabladeproductos.SelectedRows(0).Cells("codigo").Value.ToString()
-
-            ' Validaciones
-            If String.IsNullOrEmpty(txtproducto1.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtdescripcion.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtmarca1.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtmodelo.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtpreciocompra.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtprecioventa.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtstock.Text.Trim()) OrElse
-           ComboBoxproveedores.SelectedItem Is Nothing OrElse
-           ComboBoxcategorias.SelectedItem Is Nothing Then
-                MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-
-            Dim precioCompra As Decimal
-            Dim precioVenta As Decimal
-            Dim stock As Integer
-
-            ' Validar que los campos numéricos sean correctos
-            If Not Decimal.TryParse(txtpreciocompra.Text.Trim(), precioCompra) Then
-                MessageBox.Show("El precio de compra debe ser un valor numérico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-
-            If Not Decimal.TryParse(txtprecioventa.Text.Trim(), precioVenta) Then
-                MessageBox.Show("El precio de venta debe ser un valor numérico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-
-            If Not Integer.TryParse(txtstock.Text.Trim(), stock) Then
-                MessageBox.Show("El stock debe ser un número entero válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-
-            ' Actualizar el producto en la base de datos
-            Using connection As New MySqlConnection(connectionString)
-                Try
-                    connection.Open()
-                    Dim query As String = "UPDATE productos 
-                                       SET nombre = @nombre, descripcion = @descripcion, marca = @marca, modelo = @modelo, 
-                                           precio_compra = @precio_compra, precio_venta = @precio_venta, stock = @stock, 
-                                           id_proveedor = @id_proveedor, id_categoria = @id_categoria
-                                       WHERE codigo = @codigo"
-                    Dim command As New MySqlCommand(query, connection)
-                    command.Parameters.AddWithValue("@codigo", codigoProducto)
-                    command.Parameters.AddWithValue("@nombre", txtproducto1.Text.Trim())
-                    command.Parameters.AddWithValue("@descripcion", txtdescripcion.Text.Trim())
-                    command.Parameters.AddWithValue("@marca", txtmarca1.Text.Trim())
-                    command.Parameters.AddWithValue("@modelo", txtmodelo.Text.Trim())
-                    command.Parameters.AddWithValue("@precio_compra", precioCompra)
-                    command.Parameters.AddWithValue("@precio_venta", precioVenta)
-                    command.Parameters.AddWithValue("@stock", stock)
-                    command.Parameters.AddWithValue("@id_proveedor", CType(ComboBoxproveedores.SelectedItem, Object).Id)
-                    command.Parameters.AddWithValue("@id_categoria", CType(ComboBoxcategorias.SelectedItem, Object).Id)
-
-                    command.ExecuteNonQuery()
-                    MessageBox.Show("Producto editado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    CargarProductos()
-                    LimpiarCampos() ' Limpiar los campos después de editar
-                Catch ex As Exception
-                    MessageBox.Show("Error al editar producto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Using
-        Else
+        If tabladeproductos.SelectedRows.Count = 0 Then
             MessageBox.Show("Seleccione un producto para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
+
+        Dim codigoProducto As String = tabladeproductos.SelectedRows(0).Cells("codigo").Value.ToString()
+
+        ' Validación reforzada: impedir editar si faltan campos o son inválidos
+        If Not ValidarCamposParaEditar() Then
+            Return
+        End If
+
+        ' Ya validado, convertir valores numéricos de forma segura
+        Dim precioCompra As Decimal = Convert.ToDecimal(txtpreciocompra.Text.Trim())
+        Dim precioVenta As Decimal = Convert.ToDecimal(txtprecioventa.Text.Trim())
+        Dim stock As Integer = Convert.ToInt32(txtstock.Text.Trim())
+
+        ' Actualizar el producto en la base de datos
+        Using connection As New MySqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = "UPDATE productos 
+                                   SET nombre = @nombre, descripcion = @descripcion, marca = @marca, modelo = @modelo, 
+                                       precio_compra = @precio_compra, precio_venta = @precio_venta, stock = @stock, 
+                                       id_proveedor = @id_proveedor, id_categoria = @id_categoria
+                                   WHERE codigo = @codigo"
+                Dim command As New MySqlCommand(query, connection)
+                command.Parameters.AddWithValue("@codigo", codigoProducto)
+                command.Parameters.AddWithValue("@nombre", txtproducto1.Text.Trim())
+                command.Parameters.AddWithValue("@descripcion", txtdescripcion.Text.Trim())
+                command.Parameters.AddWithValue("@marca", txtmarca1.Text.Trim())
+                command.Parameters.AddWithValue("@modelo", txtmodelo.Text.Trim())
+                command.Parameters.AddWithValue("@precio_compra", precioCompra)
+                command.Parameters.AddWithValue("@precio_venta", precioVenta)
+                command.Parameters.AddWithValue("@stock", stock)
+                command.Parameters.AddWithValue("@id_proveedor", CType(ComboBoxproveedores.SelectedItem, Object).Id)
+                command.Parameters.AddWithValue("@id_categoria", CType(ComboBoxcategorias.SelectedItem, Object).Id)
+
+                command.ExecuteNonQuery()
+                MessageBox.Show("Producto editado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                CargarProductos()
+                LimpiarCampos() ' Limpiar los campos después de editar
+            Catch ex As Exception
+                MessageBox.Show("Error al editar producto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
     End Sub
 
 

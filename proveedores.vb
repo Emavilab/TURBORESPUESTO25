@@ -39,16 +39,38 @@ Public Class proveedores
         txtEMAILPRO.Clear()
     End Sub
 
+    ' Validación centralizada: no permitir agregar/editar si faltan campos
+    Private Function ValidarCamposProveedor() As Boolean
+        If String.IsNullOrWhiteSpace(txtNOMBREPRO.Text) Then
+            MessageBox.Show("Ingrese el nombre del proveedor.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtNOMBREPRO.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtTELEFONOPRO.Text) Then
+            MessageBox.Show("Ingrese el teléfono del proveedor.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtTELEFONOPRO.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtUBICACION.Text) Then
+            MessageBox.Show("Ingrese la dirección del proveedor.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtUBICACION.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtEMAILPRO.Text) Then
+            MessageBox.Show("Ingrese el email del proveedor.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtEMAILPRO.Focus()
+            Return False
+        End If
+
+        ' (Opcional) Validaciones adicionales: formato de email, longitud teléfono, etc.
+
+        Return True
+    End Function
+
     ' Botón para agregar un nuevo proveedor
     Private Sub agregarprobtn_Click(sender As Object, e As EventArgs) Handles agregarprobtn.Click
-        ' Validaciones
-        If String.IsNullOrEmpty(txtNOMBREPRO.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtTELEFONOPRO.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtUBICACION.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtEMAILPRO.Text.Trim()) Then
-            MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
+        ' Reutiliza la validación centralizada
+        If Not ValidarCamposProveedor() Then Return
 
         ' Insertar proveedor
         Using connection As New MySqlConnection(connectionString)
@@ -98,43 +120,40 @@ Public Class proveedores
     ' Botón para editar un proveedor
     Private Sub editarprobtn_Click(sender As Object, e As EventArgs) Handles editarprobtn.Click
         ' Verificar si hay una fila seleccionada
-        If tabladeproveedores.SelectedRows.Count > 0 Then
-            Dim idProveedor As String = tabladeproveedores.SelectedRows(0).Cells("id_proveedor").Value.ToString()
-
-            ' Validaciones
-            If String.IsNullOrEmpty(txtNOMBREPRO.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtTELEFONOPRO.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtUBICACION.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtEMAILPRO.Text.Trim()) Then
-                MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Return
-            End If
-
-            ' Actualizar proveedor en la base de datos
-            Using connection As New MySqlConnection(connectionString)
-                Try
-                    connection.Open()
-                    Dim query As String = "UPDATE proveedores 
-                                           SET nombre = @nombre, telefono = @telefono, direccion = @direccion, email = @email 
-                                           WHERE id_proveedor = @id"
-                    Dim command As New MySqlCommand(query, connection)
-                    command.Parameters.AddWithValue("@id", idProveedor)
-                    command.Parameters.AddWithValue("@nombre", txtNOMBREPRO.Text.Trim())
-                    command.Parameters.AddWithValue("@telefono", txtTELEFONOPRO.Text.Trim())
-                    command.Parameters.AddWithValue("@direccion", txtUBICACION.Text.Trim())
-                    command.Parameters.AddWithValue("@email", txtEMAILPRO.Text.Trim())
-
-                    command.ExecuteNonQuery()
-                    MessageBox.Show("Proveedor editado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    CargarProveedores()
-                    LimpiarCampos() ' Limpiar los campos después de editar
-                Catch ex As Exception
-                    MessageBox.Show("Error al editar proveedor: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Using
-        Else
+        If tabladeproveedores.SelectedRows.Count = 0 Then
             MessageBox.Show("Seleccione un proveedor para editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
+
+        Dim idProveedor As String = tabladeproveedores.SelectedRows(0).Cells("id_proveedor").Value.ToString()
+
+        ' Usar validación centralizada
+        If Not ValidarCamposProveedor() Then
+            Return
+        End If
+
+        ' Actualizar proveedor en la base de datos
+        Using connection As New MySqlConnection(connectionString)
+            Try
+                connection.Open()
+                Dim query As String = "UPDATE proveedores 
+                                       SET nombre = @nombre, telefono = @telefono, direccion = @direccion, email = @email 
+                                       WHERE id_proveedor = @id"
+                Dim command As New MySqlCommand(query, connection)
+                command.Parameters.AddWithValue("@id", idProveedor)
+                command.Parameters.AddWithValue("@nombre", txtNOMBREPRO.Text.Trim())
+                command.Parameters.AddWithValue("@telefono", txtTELEFONOPRO.Text.Trim())
+                command.Parameters.AddWithValue("@direccion", txtUBICACION.Text.Trim())
+                command.Parameters.AddWithValue("@email", txtEMAILPRO.Text.Trim())
+
+                command.ExecuteNonQuery()
+                MessageBox.Show("Proveedor editado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                CargarProveedores()
+                LimpiarCampos() ' Limpiar los campos después de editar
+            Catch ex As Exception
+                MessageBox.Show("Error al editar proveedor: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
     End Sub
 
     ' Evento para cargar los datos del proveedor seleccionado en los campos de texto

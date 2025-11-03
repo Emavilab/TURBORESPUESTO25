@@ -1,4 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports iTextSharp.text
+Imports iTextSharp.text.pdf
+Imports System.IO
+Imports System.Diagnostics
 
 Public Class registrarventa
 
@@ -242,6 +246,163 @@ Public Class registrarventa
         frm.ShowDialog()
     End Sub
 
+    ' --- Nueva función: genera PDF de la venta y lo abre con el visualizador predeterminado ---
+    Private Sub GenerarYAbrirPdfVenta(idVenta As Integer)
+        Try
+            Dim connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
+            Dim fecha As String = ""
+            Dim nombreUsuario As String = ""
+            Dim nombreCliente As String = ""
+            Dim dniCliente As String = ""
+            Dim montoTotal As String = ""
+            Dim montoPago As String = ""
+            Dim montoCambio As String = ""
+
+            Dim detalles As New DataTable()
+
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+
+                ' Encabezado
+                Dim queryVenta As String = "SELECT v.fecha, v.total, v.monto_pago, v.monto_cambio, u.nombre_usuario, c.nombre AS nombre_cliente, c.dni
+                                           FROM ventas v
+                                           INNER JOIN usuarios u ON v.id_usuario = u.id_usuario
+                                           INNER JOIN clientes c ON v.id_cliente = c.id_cliente
+                                           WHERE v.id_venta = @id_venta"
+                Using cmd As New MySqlCommand(queryVenta, conn)
+                    cmd.Parameters.AddWithValue("@id_venta", idVenta)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            fecha = Convert.ToDateTime(reader("fecha")).ToString("yyyy-MM-dd")
+                            nombreUsuario = reader("nombre_usuario").ToString()
+                            nombreCliente = reader("nombre_cliente").ToString()
+                            dniCliente = reader("dni").ToString()
+                            montoTotal = reader("total").ToString()
+                            montoPago = reader("monto_pago").ToString()
+                            montoCambio = reader("monto_cambio").ToString()
+                        End If
+                    End Using
+                End Using
+
+                ' Detalles
+                Dim queryDetalle As String = "SELECT p.nombre AS producto, d.precio_unitario, d.cantidad, d.subtotal
+                                             FROM detalle_venta d
+                                             INNER JOIN productos p ON d.id_producto = p.id_producto
+                                             WHERE d.id_venta = @id_venta"
+                Using cmdDetalle As New MySqlCommand(queryDetalle, conn)
+                    cmdDetalle.Parameters.AddWithValue("@id_venta", idVenta)
+                    Dim adapter As New MySqlDataAdapter(cmdDetalle)
+                    adapter.Fill(detalles)
+                End Using
+            End Using
+
+            ' Generar PDF en carpeta temporal
+            Dim pdfFileName As String = Path.Combine(Path.GetTempPath(), $"Venta_{idVenta}.pdf")
+            Dim doc As New Document(PageSize.A4, 40, 40, 80, 40)
+            Using fs As New FileStream(pdfFileName, FileMode.Create, FileAccess.Write, FileShare.None)
+                Dim writer = PdfWriter.GetInstance(doc, fs)
+                doc.Open()
+
+                ' Encabezado similar al DETALLEVENTA
+                Dim tableHeader As New PdfPTable(3)
+                tableHeader.WidthPercentage = 100
+                tableHeader.SetWidths(New Single() {1.5F, 3.5F, 2.0F})
+
+                Try
+                    Dim logo As iTextSharp.text.Image = iTextSharp.text.Image.GetInstance(My.Resources.Logo, System.Drawing.Imaging.ImageFormat.Png)
+                    logo.ScaleAbsolute(60, 60)
+                    Dim cellLogo As New PdfPCell(logo)
+                    cellLogo.Border = Rectangle.NO_BORDER
+                    cellLogo.HorizontalAlignment = Element.ALIGN_LEFT
+                    cellLogo.Rowspan = 4
+                    tableHeader.AddCell(cellLogo)
+                Catch
+                    ' Si no existe logo, continuar sin él
+                    Dim emptyCell As New PdfPCell(New Phrase(""))
+                    emptyCell.Border = Rectangle.NO_BORDER
+                    tableHeader.AddCell(emptyCell)
+                End Try
+
+                Dim marca As String = "TURBORESPUESTO"
+                Dim referencia As String = "N° Referencia: " & idVenta.ToString()
+                Dim direccion As String = "Dirección: Avenida 14 HN"
+                Dim cellCentro As New PdfPCell()
+                cellCentro.Border = Rectangle.NO_BORDER
+                cellCentro.HorizontalAlignment = Element.ALIGN_CENTER
+                cellCentro.AddElement(New Paragraph(marca, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16)))
+                cellCentro.AddElement(New Paragraph(referencia, FontFactory.GetFont(FontFactory.HELVETICA, 10)))
+                cellCentro.AddElement(New Paragraph(direccion, FontFactory.GetFont(FontFactory.HELVETICA, 10)))
+                cellCentro.Rowspan = 4
+                tableHeader.AddCell(cellCentro)
+
+                Dim cellVenta As New PdfPCell()
+                cellVenta.Border = Rectangle.NO_BORDER
+                cellVenta.HorizontalAlignment = Element.ALIGN_RIGHT
+                cellVenta.AddElement(New Paragraph("N. Venta", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10)))
+                cellVenta.AddElement(New Paragraph(idVenta.ToString(), FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                cellVenta.Rowspan = 4
+                tableHeader.AddCell(cellVenta)
+
+                doc.Add(tableHeader)
+                doc.Add(New Paragraph(" "))
+
+                ' Datos de la venta
+                Dim fuenteMono As Font = FontFactory.GetFont(FontFactory.COURIER, 11)
+                Dim sb As New System.Text.StringBuilder()
+                sb.AppendLine("Cliente:             " & nombreCliente)
+                sb.AppendLine("DNI:                 " & dniCliente)
+                sb.AppendLine("Fecha de venta:      " & fecha)
+                sb.AppendLine("Usuario de registro: " & nombreUsuario)
+                doc.Add(New Paragraph(sb.ToString(), fuenteMono))
+                doc.Add(New Paragraph(" "))
+
+                ' Tabla de detalles
+                Dim pdfTable As New PdfPTable(detalles.Columns.Count)
+                pdfTable.WidthPercentage = 100
+
+                For Each col As DataColumn In detalles.Columns
+                    pdfTable.AddCell(New Phrase(col.ColumnName, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10)))
+                Next
+
+                For Each row As DataRow In detalles.Rows
+                    For Each col As DataColumn In detalles.Columns
+                        pdfTable.AddCell(New Phrase(row(col).ToString(), FontFactory.GetFont(FontFactory.HELVETICA, 10)))
+                    Next
+                Next
+
+                doc.Add(pdfTable)
+                doc.Add(New Paragraph(" "))
+
+                ' Totales
+                Dim tablaTotales As New PdfPTable(2)
+                tablaTotales.WidthPercentage = 40
+                tablaTotales.HorizontalAlignment = Element.ALIGN_RIGHT
+                tablaTotales.DefaultCell.Border = Rectangle.NO_BORDER
+
+                tablaTotales.AddCell(New Phrase("Monto total:", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)))
+                tablaTotales.AddCell(New Phrase(montoTotal, FontFactory.GetFont(FontFactory.HELVETICA, 11)))
+
+                tablaTotales.AddCell(New Phrase("Monto pago:", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)))
+                tablaTotales.AddCell(New Phrase(montoPago, FontFactory.GetFont(FontFactory.HELVETICA, 11)))
+
+                tablaTotales.AddCell(New Phrase("Monto cambio:", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11)))
+                tablaTotales.AddCell(New Phrase(montoCambio, FontFactory.GetFont(FontFactory.HELVETICA, 11)))
+
+                doc.Add(tablaTotales)
+
+                doc.Close()
+            End Using
+
+            ' Abrir PDF con el visualizador predeterminado
+            Dim psi As New ProcessStartInfo(pdfFileName)
+            psi.UseShellExecute = True
+            Process.Start(psi)
+        Catch ex As Exception
+            MessageBox.Show("Error al generar/abrir PDF: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    ' --------------------------------------------------------------------------------
+
     Private Sub btnregistrar_Click(sender As Object, e As EventArgs) Handles btnregistrar.Click
         If idClienteSeleccionado = 0 Then
             MessageBox.Show("Seleccione un cliente.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -249,6 +410,33 @@ Public Class registrarventa
         End If
         If tabladecompras.Rows.Count = 0 OrElse tabladecompras.Rows.Cast(Of DataGridViewRow)().All(Function(r) r.IsNewRow) Then
             MessageBox.Show("Agregue al menos un producto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        ' Validación: txtpagacon debe estar rellenado y ser numérico antes de intentar registrar
+        If String.IsNullOrWhiteSpace(txtpagacon.Text) Then
+            MessageBox.Show("Ingrese el monto con el que paga el cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtpagacon.Focus()
+            Return
+        End If
+
+        Dim totalVenta As Decimal
+        If Not Decimal.TryParse(txttotal.Text, totalVenta) Then
+            MessageBox.Show("Error: total de la venta inválido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Dim montoPago As Decimal
+        If Not Decimal.TryParse(txtpagacon.Text, montoPago) Then
+            MessageBox.Show("El monto pagado debe ser un número válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtpagacon.Focus()
+            Return
+        End If
+
+        ' (Opcional) Validación adicional: pago insuficiente
+        If montoPago < totalVenta Then
+            MessageBox.Show("El monto ingresado es menor al total de la venta.", "Pago insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtpagacon.Focus()
             Return
         End If
 
@@ -265,9 +453,7 @@ Public Class registrarventa
             End If
         Next
 
-        Dim totalVenta As Decimal = Convert.ToDecimal(txttotal.Text)
-        Dim montoPago As Decimal = Convert.ToDecimal(txtpagacon.Text)
-        Dim montoCambio As Decimal = Convert.ToDecimal(txtcambio.Text)
+        Dim montoCambio As Decimal = montoPago - totalVenta
         Dim subtotal As Decimal = 0
         For Each row As DataGridViewRow In tabladecompras.Rows
             If row.IsNewRow Then Continue For
@@ -340,6 +526,10 @@ Public Class registrarventa
                 Next
 
                 trans.Commit()
+
+                ' Generar y abrir el PDF de la venta recién registrada
+                GenerarYAbrirPdfVenta(idVenta)
+
                 MessageBox.Show("Venta y factura registradas correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 tabladecompras.Rows.Clear()
                 LimpiarCampos()

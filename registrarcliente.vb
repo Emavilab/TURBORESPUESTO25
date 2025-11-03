@@ -88,17 +88,50 @@ Public Class registrarcliente
         End If
     End Sub
 
+    ' Validación centralizada: no permitir agregar/editar si faltan campos
+    Private Function ValidarCamposCliente() As Boolean
+        ' comprueba y enfoca el primer control faltante
+        If String.IsNullOrWhiteSpace(txtNOMBREPRO.Text) Then
+            MessageBox.Show("Ingrese el nombre del cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtNOMBREPRO.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtTELEFONOPRO.Text) Then
+            MessageBox.Show("Ingrese el teléfono del cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtTELEFONOPRO.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtUBICACION.Text) Then
+            MessageBox.Show("Ingrese la dirección del cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtUBICACION.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtEMAILPRO.Text) Then
+            MessageBox.Show("Ingrese el email del cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtEMAILPRO.Focus()
+            Return False
+        End If
+        If String.IsNullOrWhiteSpace(txtdni.Text) Then
+            MessageBox.Show("Ingrese el DNI del cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtdni.Focus()
+            Return False
+        End If
+        If ComboBoxTIPOCLIENTE.SelectedIndex = -1 OrElse ComboBoxTIPOCLIENTE.SelectedItem Is Nothing Then
+            MessageBox.Show("Seleccione el tipo de cliente.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ComboBoxTIPOCLIENTE.Focus()
+            Return False
+        End If
+
+        ' (Opcional) validaciones adicionales: formato email, longitud DNI, etc.
+        Return True
+    End Function
+
     Private Sub editarprobtn_Click(sender As Object, e As EventArgs) Handles editarprobtn.Click
         If tabladeclientes.SelectedRows.Count > 0 Then
             Dim idCliente As String = tabladeclientes.SelectedRows(0).Cells("id_cliente").Value.ToString()
 
-            If String.IsNullOrEmpty(txtNOMBREPRO.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtTELEFONOPRO.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtUBICACION.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtEMAILPRO.Text.Trim()) OrElse
-               String.IsNullOrEmpty(txtdni.Text.Trim()) OrElse
-               ComboBoxTIPOCLIENTE.SelectedIndex = -1 Then
-                MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ' Usar validación centralizada
+            If Not ValidarCamposCliente() Then
                 Return
             End If
 
@@ -130,16 +163,8 @@ Public Class registrarcliente
     End Sub
 
     Private Sub agregarprobtn_Click(sender As Object, e As EventArgs) Handles agregarprobtn.Click
-        ' Validaciones
-        If String.IsNullOrEmpty(txtNOMBREPRO.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtTELEFONOPRO.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtUBICACION.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtEMAILPRO.Text.Trim()) OrElse
-           String.IsNullOrEmpty(txtdni.Text.Trim()) OrElse
-           ComboBoxTIPOCLIENTE.SelectedIndex = -1 Then
-            MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
+        ' Reutiliza la validación centralizada
+        If Not ValidarCamposCliente() Then Return
 
         Dim tipoClienteId As Integer = CType(ComboBoxTIPOCLIENTE.SelectedItem, Object).Id
 
