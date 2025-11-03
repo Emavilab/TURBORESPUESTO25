@@ -39,11 +39,11 @@ Partial Class menu
         Labelproducto = New Label()
         labelusuario = New Label()
         contenedor = New Panel()
+        labeltotal = New Label()
         labelventasdeldia = New Label()
         ContextMenuReportes = New ContextMenuStrip(components)
         REPORTEVENTASToolStripMenuItem = New ToolStripMenuItem()
         REPORTECOMPRAToolStripMenuItem = New ToolStripMenuItem()
-        labeltotal = New Label()
         Panel1.SuspendLayout()
         CType(PictureBoxcerrarsesion, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
@@ -233,12 +233,21 @@ Partial Class menu
         ' 
         ' contenedor
         ' 
+        contenedor.BackColor = Color.White
         contenedor.Controls.Add(labeltotal)
         contenedor.Controls.Add(labelventasdeldia)
         contenedor.Location = New Point(193, 45)
         contenedor.Name = "contenedor"
         contenedor.Size = New Size(1048, 684)
         contenedor.TabIndex = 2
+        ' 
+        ' labeltotal
+        ' 
+        labeltotal.Font = New Font("Segoe UI Symbol", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        labeltotal.Location = New Point(435, 303)
+        labeltotal.Name = "labeltotal"
+        labeltotal.Size = New Size(201, 90)
+        labeltotal.TabIndex = 1
         ' 
         ' labelventasdeldia
         ' 
@@ -269,18 +278,11 @@ Partial Class menu
         REPORTECOMPRAToolStripMenuItem.Size = New Size(175, 22)
         REPORTECOMPRAToolStripMenuItem.Text = "REPORTE COMPRA"
         ' 
-        ' labeltotal
-        ' 
-        labeltotal.Font = New Font("Segoe UI Symbol", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        labeltotal.Location = New Point(435, 303)
-        labeltotal.Name = "labeltotal"
-        labeltotal.Size = New Size(201, 90)
-        labeltotal.TabIndex = 1
-        ' 
         ' menu
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.White
         ClientSize = New Size(1240, 729)
         Controls.Add(Panel1)
         Controls.Add(Panel2)

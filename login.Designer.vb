@@ -25,24 +25,25 @@ Partial Class login
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(login))
         PictureBox1 = New PictureBox()
         Label1 = New Label()
-        Label2 = New Label()
-        Label3 = New Label()
         txtusuario = New TextBox()
         txtcontraseña = New TextBox()
         accederbtn = New Button()
         PictureBox2 = New PictureBox()
         salirbtn = New Button()
         checkmostrar = New CheckBox()
+        Label4 = New Label()
+        Label2 = New Label()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' PictureBox1
         ' 
-        PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), Image)
-        PictureBox1.Location = New Point(-1, 2)
+        PictureBox1.BackColor = Color.Azure
+        PictureBox1.Image = My.Resources.Resources.Trend_closet__10_
+        PictureBox1.Location = New Point(-1, 0)
         PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(304, 378)
+        PictureBox1.Size = New Size(845, 530)
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
         PictureBox1.TabIndex = 0
         PictureBox1.TabStop = False
@@ -50,56 +51,42 @@ Partial Class login
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Stencil", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(363, 9)
+        Label1.BackColor = Color.Azure
+        Label1.Font = New Font("Tempus Sans ITC", 26.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(324, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(180, 25)
+        Label1.Size = New Size(272, 46)
         Label1.TabIndex = 1
         Label1.Text = "INICIAR SESIÓN"
         ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Stencil", 12F, FontStyle.Bold)
-        Label2.Location = New Point(324, 163)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(84, 19)
-        Label2.TabIndex = 2
-        Label2.Text = "USUARIO"
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Font = New Font("Stencil", 12F, FontStyle.Bold)
-        Label3.Location = New Point(324, 235)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(119, 19)
-        Label3.TabIndex = 3
-        Label3.Text = "CONTRASEÑA"
-        ' 
         ' txtusuario
         ' 
-        txtusuario.Location = New Point(324, 185)
+        txtusuario.BorderStyle = BorderStyle.FixedSingle
+        txtusuario.Font = New Font("Microsoft JhengHei", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtusuario.ForeColor = SystemColors.MenuText
+        txtusuario.Location = New Point(312, 223)
         txtusuario.Name = "txtusuario"
-        txtusuario.Size = New Size(179, 23)
+        txtusuario.Size = New Size(332, 33)
         txtusuario.TabIndex = 4
         ' 
         ' txtcontraseña
         ' 
-        txtcontraseña.Location = New Point(324, 257)
+        txtcontraseña.BorderStyle = BorderStyle.FixedSingle
+        txtcontraseña.Font = New Font("Segoe UI Emoji", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtcontraseña.Location = New Point(312, 343)
         txtcontraseña.Name = "txtcontraseña"
         txtcontraseña.PasswordChar = "*"c
-        txtcontraseña.Size = New Size(179, 23)
+        txtcontraseña.Size = New Size(332, 33)
         txtcontraseña.TabIndex = 5
         ' 
         ' accederbtn
         ' 
-        accederbtn.BackColor = SystemColors.MenuHighlight
+        accederbtn.BackColor = Color.Azure
         accederbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        accederbtn.ForeColor = Color.White
+        accederbtn.ForeColor = Color.Black
         accederbtn.Image = CType(resources.GetObject("accederbtn.Image"), Image)
         accederbtn.ImageAlign = ContentAlignment.MiddleLeft
-        accederbtn.Location = New Point(324, 315)
+        accederbtn.Location = New Point(324, 441)
         accederbtn.Name = "accederbtn"
         accederbtn.Size = New Size(116, 51)
         accederbtn.TabIndex = 6
@@ -109,8 +96,9 @@ Partial Class login
         ' 
         ' PictureBox2
         ' 
+        PictureBox2.BackColor = Color.White
         PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), Image)
-        PictureBox2.Location = New Point(410, 37)
+        PictureBox2.Location = New Point(420, 70)
         PictureBox2.Name = "PictureBox2"
         PictureBox2.Size = New Size(93, 92)
         PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
@@ -119,12 +107,12 @@ Partial Class login
         ' 
         ' salirbtn
         ' 
-        salirbtn.BackColor = SystemColors.MenuHighlight
+        salirbtn.BackColor = Color.Azure
         salirbtn.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        salirbtn.ForeColor = Color.White
+        salirbtn.ForeColor = Color.Black
         salirbtn.Image = CType(resources.GetObject("salirbtn.Image"), Image)
         salirbtn.ImageAlign = ContentAlignment.MiddleLeft
-        salirbtn.Location = New Point(456, 315)
+        salirbtn.Location = New Point(459, 441)
         salirbtn.Name = "salirbtn"
         salirbtn.Size = New Size(114, 51)
         salirbtn.TabIndex = 9
@@ -135,27 +123,50 @@ Partial Class login
         ' checkmostrar
         ' 
         checkmostrar.AutoSize = True
-        checkmostrar.Location = New Point(324, 286)
+        checkmostrar.BackColor = Color.Azure
+        checkmostrar.Location = New Point(324, 382)
         checkmostrar.Name = "checkmostrar"
         checkmostrar.Size = New Size(128, 19)
         checkmostrar.TabIndex = 10
         checkmostrar.Text = "Mostrar contraseña"
-        checkmostrar.UseVisualStyleBackColor = True
+        checkmostrar.UseVisualStyleBackColor = False
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.BackColor = Color.Azure
+        Label4.Font = New Font("Tempus Sans ITC", 26.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(307, 174)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(134, 46)
+        Label4.TabIndex = 11
+        Label4.Text = "Usuario"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.BackColor = Color.Azure
+        Label2.Font = New Font("Tempus Sans ITC", 26.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(307, 294)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(184, 46)
+        Label2.TabIndex = 12
+        Label2.Text = "Contraseña"
         ' 
         ' login
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
-        ClientSize = New Size(600, 378)
+        ClientSize = New Size(843, 526)
+        Controls.Add(Label2)
+        Controls.Add(Label4)
         Controls.Add(checkmostrar)
         Controls.Add(salirbtn)
         Controls.Add(PictureBox2)
         Controls.Add(accederbtn)
         Controls.Add(txtcontraseña)
         Controls.Add(txtusuario)
-        Controls.Add(Label3)
-        Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(PictureBox1)
         Name = "login"
@@ -169,13 +180,13 @@ Partial Class login
 
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents txtusuario As TextBox
     Friend WithEvents txtcontraseña As TextBox
     Friend WithEvents accederbtn As Button
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents salirbtn As Button
     Friend WithEvents checkmostrar As CheckBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label2 As Label
 
 End Class

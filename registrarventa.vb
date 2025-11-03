@@ -46,6 +46,23 @@ Public Class registrarventa
         Return idProducto
     End Function
 
+    ' --- Nueva función: obtener stock actual desde la base de datos por id_producto ---
+    Private Function ObtenerStockActualPorId(idProducto As Integer) As Integer
+        Dim stock As Integer = 0
+        If idProducto <= 0 Then Return stock
+        Dim connectionString As String = "Server=127.0.0.1;Database=turborepuestodb;Uid=root;Pwd=;"
+        Using conn As New MySqlConnection(connectionString)
+            conn.Open()
+            Dim cmd As New MySqlCommand("SELECT stock FROM productos WHERE id_producto = @id_producto", conn)
+            cmd.Parameters.AddWithValue("@id_producto", idProducto)
+            Dim result = cmd.ExecuteScalar()
+            If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                Integer.TryParse(result.ToString(), stock)
+            End If
+        End Using
+        Return stock
+    End Function
+    ' -------------------------------------------------------------------------------
 
     Private Sub btnbuscarcliente_Click(sender As Object, e As EventArgs) Handles btnbuscarcliente.Click
         Dim frmBuscarCliente As New buscarclienteventas()
@@ -97,10 +114,60 @@ Public Class registrarventa
 
         Dim nombreProducto As String = txtnombreproducto.Text
         Dim precioVenta As Decimal = Convert.ToDecimal(txtpreciocom.Text)
-        Dim cantidad As Integer = NumericUpDowncantiddad.Value
+        Dim cantidad As Integer = Convert.ToInt32(NumericUpDowncantiddad.Value)
+
+        ' Asegurarse de tener el id del producto (fallback por nombre si no se estableció)
+        If idProductoSeleccionado <= 0 Then
+            idProductoSeleccionado = ObtenerIdProductoPorNombre(nombreProducto)
+        End If
+
+        ' Obtener stock actual desde la base de datos
+        Dim stockActual As Integer = ObtenerStockActualPorId(idProductoSeleccionado)
+
+        If stockActual <= 0 Then
+            MessageBox.Show("Producto sin stock disponible.", "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        ' Calcular cantidad ya agregada al carrito para este producto
+        Dim cantidadEnCarrito As Integer = 0
+        For Each row As DataGridViewRow In tabladecompras.Rows
+            If row.IsNewRow Then Continue For
+            Dim nombreFila As String = If(row.Cells(0).Value, String.Empty).ToString()
+            If String.Compare(nombreFila, nombreProducto, True) = 0 Then
+                Integer.TryParse(row.Cells(2).Value.ToString(), cantidadEnCarrito)
+                Exit For
+            End If
+        Next
+
+        ' Validación: stock disponible para la suma (ya en carrito + nueva cantidad)
+        If cantidadEnCarrito + cantidad > stockActual Then
+            MessageBox.Show($"Stock insuficiente. Stock actual: {stockActual}. Cantidad en carrito: {cantidadEnCarrito}. Cantidad solicitada: {cantidad}.", "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Dim subtotal As Decimal = precioVenta * cantidad
 
-        tabladecompras.Rows.Add(nombreProducto, precioVenta.ToString("0.00"), cantidad, subtotal.ToString("0.00"))
+        ' Si el producto ya está en el DataGridView, actualizamos la fila en lugar de agregar duplicada
+        Dim filaExistente As DataGridViewRow = Nothing
+        For Each row As DataGridViewRow In tabladecompras.Rows
+            If row.IsNewRow Then Continue For
+            Dim nombreFila As String = If(row.Cells(0).Value, String.Empty).ToString()
+            If String.Compare(nombreFila, nombreProducto, True) = 0 Then
+                filaExistente = row
+                Exit For
+            End If
+        Next
+
+        If filaExistente IsNot Nothing Then
+            ' Actualizar cantidad y subtotal en la fila existente
+            Dim nuevaCantidad As Integer = Convert.ToInt32(filaExistente.Cells(2).Value) + cantidad
+            filaExistente.Cells(2).Value = nuevaCantidad
+            filaExistente.Cells(3).Value = (Convert.ToDecimal(filaExistente.Cells(1).Value) * nuevaCantidad).ToString("0.00")
+        Else
+            tabladecompras.Rows.Add(nombreProducto, precioVenta.ToString("0.00"), cantidad, subtotal.ToString("0.00"))
+        End If
+
         CalcularTotales()
     End Sub
 
@@ -184,6 +251,19 @@ Public Class registrarventa
             MessageBox.Show("Agregue al menos un producto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
+
+        ' Antes de registrar la venta, validar nuevamente stock contra cantidades en tabladecompras
+        For Each row As DataGridViewRow In tabladecompras.Rows
+            If row.IsNewRow Then Continue For
+            Dim nombreProd As String = row.Cells(0).Value.ToString()
+            Dim cantidadReq As Integer = Convert.ToInt32(row.Cells(2).Value)
+            Dim idProd As Integer = ObtenerIdProductoPorNombre(nombreProd)
+            Dim stockActual As Integer = ObtenerStockActualPorId(idProd)
+            If cantidadReq > stockActual Then
+                MessageBox.Show($"No se puede completar la venta. Stock insuficiente para '{nombreProd}'. Stock actual: {stockActual}. Cantidad solicitada: {cantidadReq}.", "Stock insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+        Next
 
         Dim totalVenta As Decimal = Convert.ToDecimal(txttotal.Text)
         Dim montoPago As Decimal = Convert.ToDecimal(txtpagacon.Text)
